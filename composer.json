@@ -1,0 +1,24 @@
+{
+    "name": "mpi/eaf-parser",
+    "description": "EAF annotation parser and resolver",
+    "require-dev": {
+        "symfony/var-dumper": "4.4.x-dev"
+    },
+    "license": "Gnu Public License 2",
+    "authors": [
+        {
+            "name": "Ibrahim Abdullah",
+            "email": "abdul.ibrahim16@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.1.0",
+        "php-ds/php-ds": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "MPI\\EAF\\": "src/"
+        }
+    }
+}
