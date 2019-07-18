@@ -3,8 +3,6 @@ namespace MPI\EAF\Parser\Annotation;
 
 use SimpleXMLElement;
 use MPI\EAF\Annotation\RefAnnotation;
-use MPI\EAF\Timeslot\Store;
-use MPI\EAF\Timeslot\NotFoundException;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>

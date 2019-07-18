@@ -1,11 +1,13 @@
 <?php
 namespace MPI\EAF;
 
+use JsonSerializable;
+
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class Property
+class Property implements JsonSerializable
 {
     /**
      * @var string
@@ -47,5 +49,19 @@ class Property
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+
+            'name'  => $this->getName(),
+            'value' => $this->getValue(),
+        ];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace MPI\EAF;
 
+use MPI\EAF\Eaf;
 use MPI\EAF\Timeslot\Store as TimeslotStore;
 use MPI\EAF\LinguisticType\Store as LinguisticTypeStore;
 use MPI\EAF\Annotation\Store as AnnotationStore;
@@ -11,6 +12,7 @@ use MPI\EAF\Parser\TimeslotParser;
 use MPI\EAF\Parser\TierParser;
 use MPI\EAF\Parser\LinguisticTypeParser;
 use SimpleXMLElement;
+use MPI\EAF\Annotation\Sorter;
 
 /**
  * Parser
@@ -73,7 +75,7 @@ class Parser
      *
      * @return array
      */
-    public function parse()
+    public function parse(): Eaf
     {
         $contents = simplexml_load_file($this->file);
 
@@ -81,18 +83,24 @@ class Parser
         $this->linguisticTypeStore = (new LinguisticTypeParser)->parse($contents->LINGUISTIC_TYPE);
         $this->annotationStore     = new AnnotationStore();
 
-        $data = [
+        $metadata  = (new MetadataParser)->parse($contents);
+        $header    = (new HeaderParser)->parse($contents->HEADER);
+        $tierStore = (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($contents->TIER);
 
-            'metadata'  => (new MetadataParser)->parse($contents),
-            'header'    => (new HeaderParser)->parse($contents->HEADER),
-            'timeslots' => $this->timeslotStore,
-            'tiers'     => (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($contents->TIER),
-        ];
+        $eaf = new Eaf(
+
+            $metadata,
+            $header,
+            $this->timeslotStore,
+            $tierStore
+        );
 
         $resolver = new RefAnnotationResolver($this->annotationStore);
         $resolver->resolve();
 
-        dump($data['tiers']);exit;
-        return $data;
+        $sorter = new Sorter();
+        $sorter->sort($tierStore->get('token'));
+
+        return $eaf;
     }
 }

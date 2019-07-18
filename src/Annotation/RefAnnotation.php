@@ -2,6 +2,7 @@
 namespace MPI\EAF\Annotation;
 
 use MPI\EAF\Annotation\AnnotationInterface;
+use JsonSerializable;
 
 /**
  * Alignable Annotation Entity
@@ -9,7 +10,7 @@ use MPI\EAF\Annotation\AnnotationInterface;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class RefAnnotation implements AnnotationInterface
+class RefAnnotation implements AnnotationInterface, JsonSerializable
 {
     /** @var string */
     const ANNOTATION_TYPE = 'ref';
@@ -52,7 +53,7 @@ class RefAnnotation implements AnnotationInterface
      * @param string      $ref
      * @param string|null $previous
      */
-    public function __construct(string $id, string $value, string $ref, string $previous = null)
+    public function __construct(string $id, string $value, string $ref, ?string $previous)
     {
         $this->id                   = $id;
         $this->value                = $value;
@@ -110,7 +111,7 @@ class RefAnnotation implements AnnotationInterface
      *
      * @return AnnotationInterface
      */
-    public function getReferencedAnnotation(): AnnotationInterface
+    public function getReferencedAnnotation(): ?AnnotationInterface
     {
         return $this->referencedAnnotation;
     }
@@ -143,8 +144,27 @@ class RefAnnotation implements AnnotationInterface
      *
      * @return AnnotationInterface
      */
-    public function getPreviousAnnotation(): AnnotationInterface
+    public function getPreviousAnnotation(): ?AnnotationInterface
     {
         return $this->previousAnnotation;
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+
+            'id'                    => $this->getId(),
+            'type'                  => self::ANNOTATION_TYPE,
+            'value'                 => $this->getValue(),
+            'ref'                   => $this->getRef(),
+            'referenced_annotation' => $this->getReferencedAnnotation(),
+            'previous'              => $this->getPrevious(),
+            'previous_annotation'   => $this->getPreviousAnnotation(),
+        ];
     }
 }

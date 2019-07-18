@@ -2,6 +2,7 @@
 namespace MPI\EAF;
 
 use DateTime;
+use JsonSerializable;
 
 /**
  * Metadata entity
@@ -9,7 +10,7 @@ use DateTime;
  * @author  Ibrahim Abdullah <ibrahim.abdullah.mpi.nl>
  * @package MPI EAF Parser
  */
-class Metadata
+class Metadata implements JsonSerializable
 {
     /**
      * @var string
@@ -85,5 +86,21 @@ class Metadata
     public function getVersion(): string
     {
         return $this->version;
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+
+            'author'  => $this->getAuthor(),
+            'date'    => $this->getDate()->getTimestamp(),
+            'format'  => $this->getFormat(),
+            'version' => $this->getVersion(),
+        ];
     }
 }

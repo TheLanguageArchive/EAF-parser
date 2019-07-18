@@ -4,6 +4,8 @@ namespace MPI\EAF\Timeslot;
 use MPI\EAF\Timeslot\Timeslot;
 use MPI\EAF\Timeslot\NotFoundException;
 use Ds\Map;
+use JsonSerializable;
+use Traversable;
 
 /**
  * Timeslot store
@@ -11,7 +13,7 @@ use Ds\Map;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class Store
+class Store implements JsonSerializable
 {
     /**
      * @var Map
@@ -34,7 +36,7 @@ class Store
      *
      * @return self
      */
-    public function add(string $id, int $time = null)
+    public function add(string $id, ?int $time = null)
     {
         $this->store->put($id, new Timeslot($id, $time));
         return $this;
@@ -54,5 +56,31 @@ class Store
         }
 
         throw new NotFoundException('Timeslot not found');
+    }
+
+    /**
+     * Getting internal store iterator
+     *
+     * @return Traversable
+     */
+    public function getIterator(): Traversable
+    {
+        return $this->store->getIterator();
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $timeslots = [];
+
+        foreach ($this->getIterator() as $timeslot) {
+            $timeslots[] = $timeslot;
+        }
+
+        return $timeslots;
     }
 }

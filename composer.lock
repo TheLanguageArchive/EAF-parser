@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e4ca5a7e31e9dc9e3c30eba9bc32df5",
+    "content-hash": "f5599515af3a59d2a3465af2b6aa1e07",
     "packages": [
         {
             "name": "php-ds/php-ds",
-            "version": "dev-master",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-ds/polyfill.git",
-                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0"
+                "reference": "27bed3897f9c801604f5bdcb65b71eb61ec80099"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/5af86a08d5a37239092a6f6066aafa00bdf37ea0",
-                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0",
+                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/27bed3897f9c801604f5bdcb65b71eb61ec80099",
+                "reference": "27bed3897f9c801604f5bdcb65b71eb61ec80099",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "php",
                 "polyfill"
             ],
-            "time": "2019-05-28T19:52:55+00:00"
+            "time": "2017-08-03T02:03:34+00:00"
         }
     ],
     "packages-dev": [
@@ -175,12 +175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "b0ca88968225cc4f7cc6b44ff2d6934a9b8aeb2e"
+                "reference": "f5c5af61385fe561e76a4a0d5fb5279485952e0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/b0ca88968225cc4f7cc6b44ff2d6934a9b8aeb2e",
-                "reference": "b0ca88968225cc4f7cc6b44ff2d6934a9b8aeb2e",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f5c5af61385fe561e76a4a0d5fb5279485952e0a",
+                "reference": "f5c5af61385fe561e76a4a0d5fb5279485952e0a",
                 "shasum": ""
             },
             "require": {
@@ -243,13 +243,12 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-06-27T17:38:50+00:00"
+            "time": "2019-07-18T07:54:44+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "php-ds/php-ds": 20,
         "symfony/var-dumper": 20
     },
     "prefer-stable": false,

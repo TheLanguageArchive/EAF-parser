@@ -2,12 +2,13 @@
 namespace MPI\EAF\Tier;
 
 use MPI\EAF\Annotation\Store as AnnotationStore;
+use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class Tier
+class Tier implements JsonSerializable
 {
     /**
      * @var string
@@ -43,7 +44,7 @@ class Tier
      * @param string          $linguisticType
      * @param string|null     $parent
      */
-    public function __construct(string $id, string $locale, AnnotationStore $annotationStore, string $linguisticType, string $parent = null)
+    public function __construct(string $id, string $locale, AnnotationStore $annotationStore, string $linguisticType, ?string $parent = null)
     {
         $this->id              = $id;
         $this->locale          = $locale;
@@ -97,8 +98,24 @@ class Tier
      *
      * @return string|null
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return $this->parent;
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+
+            'id'              => $this->getId(),
+            'locale'          => $this->getLocale(),
+            'annotations'     => $this->getAnnotationStore(),
+            'linguistic_type' => $this->getLinguisticType(),
+        ];
     }
 }

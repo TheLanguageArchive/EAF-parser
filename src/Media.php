@@ -1,11 +1,13 @@
 <?php
 namespace MPI\EAF;
 
+use JsonSerializable;
+
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class Media
+class Media implements JsonSerializable
 {
     /**
      * @var string
@@ -62,5 +64,20 @@ class Media
     public function getRelative(): string
     {
         return $this->relative;
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+
+            'url'      => $this->getUrl(),
+            'mimetype' => $this->getMimetype(),
+            'relative' => $this->getRelative(),
+        ];
     }
 }

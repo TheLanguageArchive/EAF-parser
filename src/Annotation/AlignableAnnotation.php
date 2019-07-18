@@ -3,6 +3,7 @@ namespace MPI\EAF\Annotation;
 
 use MPI\EAF\Annotation\AnnotationInterface;
 use MPI\EAF\Timeslot\Timeslot;
+use JsonSerializable;
 
 /**
  * Alignable Annotation Entity
@@ -10,7 +11,7 @@ use MPI\EAF\Timeslot\Timeslot;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class AlignableAnnotation implements AnnotationInterface
+class AlignableAnnotation implements AnnotationInterface, JsonSerializable
 {
     /** @var string */
     const ANNOTATION_TYPE = 'alignable';
@@ -89,5 +90,22 @@ class AlignableAnnotation implements AnnotationInterface
     public function getEnd(): Timeslot
     {
         return $this->end;
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+
+            'id'    => $this->getId(),
+            'type'  => self::ANNOTATION_TYPE,
+            'value' => $this->getValue(),
+            'start' => $this->getStart(),
+            'end'   => $this->getEnd(),
+        ];
     }
 }

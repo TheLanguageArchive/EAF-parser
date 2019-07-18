@@ -3,12 +3,14 @@ namespace MPI\EAF\Tier;
 
 use Ds\Map;
 use MPI\EAF\Tier\NotFoundException;
+use JsonSerializable;
+use Traversable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class Store
+class Store implements JsonSerializable
 {
     /**
      * @var Map
@@ -50,5 +52,31 @@ class Store
         }
 
         throw new NotFoundException('Tier was not found');
+    }
+
+    /**
+     * Getting internal store iterator
+     *
+     * @return Traversable
+     */
+    public function getIterator(): Traversable
+    {
+        return $this->store->getIterator();
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $tiers = [];
+
+        foreach ($this->getIterator() as $tier) {
+            $tiers[] = $tier;
+        }
+
+        return $tiers;
     }
 }

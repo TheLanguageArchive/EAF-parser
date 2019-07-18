@@ -3,6 +3,7 @@ namespace MPI\EAF;
 
 use MPI\EAF\Media;
 use MPI\EAF\Property;
+use JsonSerializable;
 
 /**
  * Header entity
@@ -10,7 +11,7 @@ use MPI\EAF\Property;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class Header
+class Header implements JsonSerializable
 {
     /**
      * @var string
@@ -59,13 +60,13 @@ class Header
     }
 
     /**
-     * Get timeslots
+     * Get timeunits
      *
      * @return string
      */
     public function getTimeUnits(): string
     {
-        return $this->timeslots;
+        return $this->timeunits;
     }
 
     /**
@@ -86,5 +87,21 @@ class Header
     public function getProperties(): array
     {
         return $this->properties;
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+
+            'mediafile'  => $this->getMediaFile(),
+            'timeunits'  => $this->getTimeUnits(),
+            'media'      => $this->getMedia(),
+            'properties' => $this->getProperties(),
+        ];
     }
 }

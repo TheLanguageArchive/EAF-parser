@@ -4,12 +4,13 @@ namespace MPI\EAF\Annotation;
 use MPI\EAF\Timeslot\NotFoundException;
 use Ds\Map;
 use Traversable;
+use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
  */
-class Store
+class Store implements JsonSerializable
 {
     /**
      * @var Map
@@ -35,6 +36,19 @@ class Store
     public function add(string $id, AnnotationInterface $annotation): self
     {
         $this->store->put($id, $annotation);
+        return $this;
+    }
+
+    /**
+     * Adding multiple values
+     *
+     * @param array $values
+     *
+     * @return self
+     */
+    public function addMultiple(array $values): self
+    {
+        $this->store->putAll($values);
         return $this;
     }
 
@@ -68,6 +82,17 @@ class Store
     }
 
     /**
+     * Clearing internal store
+     *
+     * @return self
+     */
+    public function clear(): self
+    {
+        $this->store->clear();
+        return $this;
+    }
+
+    /**
      * Getting internal store iterator
      *
      * @return Traversable
@@ -75,5 +100,21 @@ class Store
     public function getIterator(): Traversable
     {
         return $this->store->getIterator();
+    }
+
+    /**
+     * json_encode calls this method
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $annotations = [];
+
+        foreach ($this->getIterator() as $annotation) {
+            $annotations[] = $annotation;
+        }
+
+        return $annotations;
     }
 }

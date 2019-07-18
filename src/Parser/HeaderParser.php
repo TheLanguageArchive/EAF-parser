@@ -17,9 +17,9 @@ class HeaderParser
      *
      * @param SimpleXMLElement $header
      *
-     * @return array
+     * @return Header
      */
-    public function parse(SimpleXMLElement $header)
+    public function parse(SimpleXMLElement $header): Header
     {
         $attributes = $header->attributes();
 
