@@ -34,7 +34,7 @@ class RefAnnotationResolver
      */
     public function resolve()
     {
-        foreach ($this->annotationStore->getIterator() as $annotation) {
+        foreach ($this->annotationStore->getStorage() as $annotation) {
 
             if ($annotation instanceof RefAnnotation) {
 

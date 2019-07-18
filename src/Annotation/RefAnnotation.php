@@ -2,6 +2,7 @@
 namespace MPI\EAF\Annotation;
 
 use MPI\EAF\Annotation\AnnotationInterface;
+use MPI\EAF\Timeslot\Timeslot;
 use JsonSerializable;
 
 /**
@@ -46,6 +47,16 @@ class RefAnnotation implements AnnotationInterface, JsonSerializable
     private $previousAnnotation;
 
     /**
+     * @var Timeslot
+     */
+    private $customStart;
+
+    /**
+     * @var Timeslot
+     */
+    private $customEnd;
+
+    /**
      * Constructor
      *
      * @param string      $id
@@ -61,6 +72,8 @@ class RefAnnotation implements AnnotationInterface, JsonSerializable
         $this->referencedAnnotation = null;
         $this->previous             = $previous;
         $this->previousAnnotation   = null;
+        $this->customStart          = null;
+        $this->customEnd            = null;
     }
 
     /**
@@ -150,6 +163,56 @@ class RefAnnotation implements AnnotationInterface, JsonSerializable
     }
 
     /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to set the custom divided timeslot
+     *
+     * @param Timeslot $start
+     *
+     * @return RefAnnotation
+     */
+    public function setCustomStart(Timeslot $customStart): RefAnnotation
+    {
+        $this->customStart = $customStart;
+        return $this;
+    }
+
+    /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to get the custom divided timeslot
+     *
+     * @return Timeslot|null
+     */
+    public function getCustomStart(): ?Timeslot
+    {
+        return $this->customStart;
+    }
+
+    /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to set the custom divided timeslot
+     *
+     * @param Timeslot $start
+     *
+     * @return RefAnnotation
+     */
+    public function setCustomEnd(Timeslot $customEnd): RefAnnotation
+    {
+        $this->customEnd = $customEnd;
+        return $this;
+    }
+
+    /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to get the custom divided timeslot
+     *
+     * @return Timeslot|null
+     */
+    public function getCustomEnd(): ?Timeslot
+    {
+        return $this->customEnd;
+    }
+
+    /**
      * json_encode calls this method
      *
      * @return array
@@ -165,6 +228,8 @@ class RefAnnotation implements AnnotationInterface, JsonSerializable
             'referenced_annotation' => $this->getReferencedAnnotation(),
             'previous'              => $this->getPrevious(),
             'previous_annotation'   => $this->getPreviousAnnotation(),
+            'custom_start'          => $this->getCustomStart(),
+            'custom_end'            => $this->getCustomEnd(),
         ];
     }
 }

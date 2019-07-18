@@ -13,6 +13,7 @@ use MPI\EAF\Parser\TierParser;
 use MPI\EAF\Parser\LinguisticTypeParser;
 use SimpleXMLElement;
 use MPI\EAF\Annotation\Sorter;
+use MPI\EAF\LinguisticType\SymbolicSubdivision;
 
 /**
  * Parser
@@ -82,24 +83,32 @@ class Parser
         $this->timeslotStore       = (new TimeslotParser)->parse($contents->TIME_ORDER->TIME_SLOT);
         $this->linguisticTypeStore = (new LinguisticTypeParser)->parse($contents->LINGUISTIC_TYPE);
         $this->annotationStore     = new AnnotationStore();
+        $this->tierStore           = (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($contents->TIER);
 
-        $metadata  = (new MetadataParser)->parse($contents);
-        $header    = (new HeaderParser)->parse($contents->HEADER);
-        $tierStore = (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($contents->TIER);
-
-        $eaf = new Eaf(
+        $metadata = (new MetadataParser)->parse($contents);
+        $header   = (new HeaderParser)->parse($contents->HEADER);
+        $eaf      = new Eaf(
 
             $metadata,
             $header,
             $this->timeslotStore,
-            $tierStore
+            $this->tierStore
         );
 
         $resolver = new RefAnnotationResolver($this->annotationStore);
         $resolver->resolve();
 
-        $sorter = new Sorter();
-        $sorter->sort($tierStore->get('token'));
+        foreach ($this->tierStore->getStorage() as $tier) {
+
+            if ($tier->getLinguisticType() === self::LINGUISTIC_TYPE_SYMBOLIC_SUBDIVISION) {
+
+                $sorter = new Sorter();
+                $sorter->sort($tier);
+
+                $subdivision = new SymbolicSubdivision();
+                $subdivision->divide($tier);
+            }
+        }
 
         return $eaf;
     }

@@ -63,7 +63,7 @@ class TierParser
 
             $tierAnnotationStores[$id] = (new AnnotationParser($this->timeslotStore))->parse($item->ANNOTATION);
 
-            foreach ($tierAnnotationStores[$id]->getIterator() as $annotation) {
+            foreach ($tierAnnotationStores[$id]->getStorage() as $annotation) {
                 $this->annotationStore->add($annotation->getId(), $annotation);
             }
         }

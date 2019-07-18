@@ -60,8 +60,8 @@ class Timeslot implements JsonSerializable
     {
         return [
 
-            'id'   => $this->getId(),
-            'time' => $this->getTime(),
+            'id'          => $this->getId(),
+            'time'        => $this->getTime(),
         ];
     }
 }

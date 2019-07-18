@@ -57,11 +57,11 @@ class Store implements JsonSerializable
     /**
      * Getting internal store iterator
      *
-     * @return Traversable
+     * @return Map
      */
-    public function getIterator(): Traversable
+    public function getStorage(): Map
     {
-        return $this->store->getIterator();
+        return $this->store;
     }
 
     /**
@@ -73,7 +73,7 @@ class Store implements JsonSerializable
     {
         $tiers = [];
 
-        foreach ($this->getIterator() as $tier) {
+        foreach ($this->getStorage() as $tier) {
             $tiers[] = $tier;
         }
 

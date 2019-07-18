@@ -21,7 +21,7 @@ class Sorter
         $store = $tier->getAnnotationStore();
         $vector = new Vector();
 
-        foreach ($store->getIterator() as $annotation) {
+        foreach ($store->getStorage() as $annotation) {
             $vector->push($annotation);
         }
 

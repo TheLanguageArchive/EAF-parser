@@ -82,6 +82,17 @@ class Store implements JsonSerializable
     }
 
     /**
+     * Get first annotation
+     *
+     * @return AnnotationInterface
+     */
+    public function first(): AnnotationInterface
+    {
+        $first = $this->store->first();
+        return $this->store->get($first->key);
+    }
+
+    /**
      * Clearing internal store
      *
      * @return self
@@ -93,13 +104,23 @@ class Store implements JsonSerializable
     }
 
     /**
+     * Count number of annotations
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->store->count();
+    }
+
+    /**
      * Getting internal store iterator
      *
-     * @return Traversable
+     * @return Map
      */
-    public function getIterator(): Traversable
+    public function getStorage(): Map
     {
-        return $this->store->getIterator();
+        return $this->store;
     }
 
     /**
@@ -111,7 +132,7 @@ class Store implements JsonSerializable
     {
         $annotations = [];
 
-        foreach ($this->getIterator() as $annotation) {
+        foreach ($this->getStorage() as $annotation) {
             $annotations[] = $annotation;
         }
 
