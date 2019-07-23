@@ -11,9 +11,9 @@ use MPI\EAF\Parser\HeaderParser;
 use MPI\EAF\Parser\TimeslotParser;
 use MPI\EAF\Parser\TierParser;
 use MPI\EAF\Parser\LinguisticTypeParser;
-use SimpleXMLElement;
 use MPI\EAF\Annotation\Sorter;
 use MPI\EAF\LinguisticType\SymbolicSubdivision;
+use MPI\EAF\LinguisticType\TimeSubdivision;
 
 /**
  * Parser
@@ -106,6 +106,12 @@ class Parser
                 $sorter->sort($tier);
 
                 $subdivision = new SymbolicSubdivision();
+                $subdivision->divide($tier);
+            }
+
+            if ($tier->getLinguisticType() === self::LINGUISTIC_TYPE_TIME_SUBDIVISION) {
+
+                $subdivision = new TimeSubdivision();
                 $subdivision->divide($tier);
             }
         }

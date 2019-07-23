@@ -168,9 +168,9 @@ class RefAnnotation implements AnnotationInterface, JsonSerializable
      *
      * @param Timeslot $start
      *
-     * @return RefAnnotation
+     * @return self
      */
-    public function setCustomStart(Timeslot $customStart): RefAnnotation
+    public function setCustomStart(Timeslot $customStart): self
     {
         $this->customStart = $customStart;
         return $this;
@@ -193,9 +193,9 @@ class RefAnnotation implements AnnotationInterface, JsonSerializable
      *
      * @param Timeslot $start
      *
-     * @return RefAnnotation
+     * @return self
      */
-    public function setCustomEnd(Timeslot $customEnd): RefAnnotation
+    public function setCustomEnd(Timeslot $customEnd): self
     {
         $this->customEnd = $customEnd;
         return $this;

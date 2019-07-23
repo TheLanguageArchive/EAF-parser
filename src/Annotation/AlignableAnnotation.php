@@ -37,6 +37,16 @@ class AlignableAnnotation implements AnnotationInterface, JsonSerializable
     private $end;
 
     /**
+     * @var Timeslot
+     */
+    private $customStart;
+
+    /**
+     * @var Timeslot
+     */
+    private $customEnd;
+
+    /**
      * Constructor
      *
      * @param string   $id
@@ -46,10 +56,12 @@ class AlignableAnnotation implements AnnotationInterface, JsonSerializable
      */
     public function __construct(string $id, string $value, Timeslot $start, Timeslot $end)
     {
-        $this->id    = $id;
-        $this->value = $value;
-        $this->start = $start;
-        $this->end   = $end;
+        $this->id          = $id;
+        $this->value       = $value;
+        $this->start       = $start;
+        $this->end         = $end;
+        $this->customStart = null;
+        $this->customEnd   = null;
     }
 
     /**
@@ -93,6 +105,56 @@ class AlignableAnnotation implements AnnotationInterface, JsonSerializable
     }
 
     /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to set the custom divided timeslot
+     *
+     * @param Timeslot $start
+     *
+     * @return self
+     */
+    public function setCustomStart(Timeslot $customStart): self
+    {
+        $this->customStart = $customStart;
+        return $this;
+    }
+
+    /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to get the custom divided timeslot
+     *
+     * @return Timeslot|null
+     */
+    public function getCustomStart(): ?Timeslot
+    {
+        return $this->customStart;
+    }
+
+    /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to set the custom divided timeslot
+     *
+     * @param Timeslot $start
+     *
+     * @return self
+     */
+    public function setCustomEnd(Timeslot $customEnd): self
+    {
+        $this->customEnd = $customEnd;
+        return $this;
+    }
+
+    /**
+     * When a SymbolicSubdivision tier has custom timeslots
+     * this method will be used to get the custom divided timeslot
+     *
+     * @return Timeslot|null
+     */
+    public function getCustomEnd(): ?Timeslot
+    {
+        return $this->customEnd;
+    }
+
+    /**
      * json_encode calls this method
      *
      * @return array
@@ -101,11 +163,13 @@ class AlignableAnnotation implements AnnotationInterface, JsonSerializable
     {
         return [
 
-            'id'    => $this->getId(),
-            'type'  => self::ANNOTATION_TYPE,
-            'value' => $this->getValue(),
-            'start' => $this->getStart(),
-            'end'   => $this->getEnd(),
+            'id'           => $this->getId(),
+            'type'         => self::ANNOTATION_TYPE,
+            'value'        => $this->getValue(),
+            'start'        => $this->getStart(),
+            'end'          => $this->getEnd(),
+            'custom_start' => $this->getCustomStart(),
+            'custom_end'   => $this->getCustomEnd(),
         ];
     }
 }

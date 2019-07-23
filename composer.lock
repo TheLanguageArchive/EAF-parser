@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87fa57bec521cb2b2870b5e9ada4079f",
-    "packages": [],
+    "content-hash": "b750a761fa0aadfe2839026e25be92a6",
+    "packages": [
+        {
+            "name": "php-ds/php-ds",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-ds/polyfill.git",
+                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/5af86a08d5a37239092a6f6066aafa00bdf37ea0",
+                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "php-ds/tests": "^1.2"
+            },
+            "suggest": {
+                "ext-ds": "to improve performance and reduce memory usage"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rudi Theunissen",
+                    "email": "rudolf.theunissen@gmail.com"
+                }
+            ],
+            "keywords": [
+                "data structures",
+                "ds",
+                "php",
+                "polyfill"
+            ],
+            "time": "2019-05-28T19:52:55+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "symfony/polyfill-mbstring",
@@ -127,12 +175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "f5c5af61385fe561e76a4a0d5fb5279485952e0a"
+                "reference": "4ea15803a4d2ad9ffc02d784ea48bf2fd32953fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f5c5af61385fe561e76a4a0d5fb5279485952e0a",
-                "reference": "f5c5af61385fe561e76a4a0d5fb5279485952e0a",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/4ea15803a4d2ad9ffc02d784ea48bf2fd32953fa",
+                "reference": "4ea15803a4d2ad9ffc02d784ea48bf2fd32953fa",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +195,7 @@
             "require-dev": {
                 "ext-iconv": "*",
                 "symfony/console": "^3.4|^4.0|^5.0",
-                "symfony/process": "^3.4|^4.0|^5.0",
+                "symfony/process": "^4.4|^5.0",
                 "twig/twig": "~1.34|~2.4"
             },
             "suggest": {
@@ -195,12 +243,13 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-07-18T07:54:44+00:00"
+            "time": "2019-07-23T12:04:21+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "php-ds/php-ds": 20,
         "symfony/var-dumper": 20
     },
     "prefer-stable": false,

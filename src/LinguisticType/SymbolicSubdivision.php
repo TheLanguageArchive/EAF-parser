@@ -3,11 +3,16 @@ namespace MPI\EAF\LinguisticType;
 
 use MPI\EAF\Tier\Tier;
 use MPI\EAF\Timeslot\Timeslot;
-use MPI\EAF\Annotation\AlignableAnnotation;
 
 /**
  * SymbolicSubdivision divides a tier's annotations
  * across the begin and end timeslots
+ *
+ * - All ref annotations
+ * - References alignable annotation
+ * - "previous_annotation" determines order
+ * - group ref annotations by annotation_ref
+ * - resolve time from top of tree§
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
@@ -34,7 +39,7 @@ class SymbolicSubdivision
         $start       = $referenced->getStart();
         $end         = $referenced->getEnd();
         $duration    = (($end->getTime() - $start->getTime()) / $total);
-        $customStart = -300;
+        $customStart = -$duration;
         $customEnd   = 0;
 
         // and finally saving the custom time back into ref annotation
@@ -47,7 +52,6 @@ class SymbolicSubdivision
 
             $annotation->setCustomStart(new Timeslot('custom-' . $referenced->getStart()->getId(), $customStart));
             $annotation->setCustomEnd(new Timeslot('custom-' . $referenced->getEnd()->getId(), $customEnd));
-
         }
     }
 }
