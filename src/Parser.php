@@ -13,6 +13,7 @@ use MPI\EAF\Parser\TierParser;
 use MPI\EAF\Parser\LinguisticTypeParser;
 use MPI\EAF\Annotation\Sorter;
 use MPI\EAF\LinguisticType\SymbolicSubdivision;
+use MPI\EAF\LinguisticType\SymbolicAssociation;
 use MPI\EAF\LinguisticType\TimeSubdivision;
 
 /**
@@ -107,6 +108,12 @@ class Parser
 
                 $subdivision = new SymbolicSubdivision();
                 $subdivision->divide($tier);
+            }
+
+            if ($tier->getLinguisticType() === self::LINGUISTIC_TYPE_SYMBOLIC_ASSOCIATION) {
+
+                $association = new SymbolicAssociation();
+                $association->associate($tier);
             }
 
             if ($tier->getLinguisticType() === self::LINGUISTIC_TYPE_TIME_SUBDIVISION) {

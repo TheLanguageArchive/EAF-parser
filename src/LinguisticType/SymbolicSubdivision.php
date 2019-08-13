@@ -12,7 +12,7 @@ use MPI\EAF\Timeslot\Timeslot;
  * - References alignable annotation
  * - "previous_annotation" determines order
  * - group ref annotations by annotation_ref
- * - resolve time from top of tree§
+ * - resolve time from top of tree
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package MPI EAF Parser
