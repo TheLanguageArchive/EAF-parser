@@ -2,6 +2,7 @@
 namespace MPI\EAF\Parser;
 
 use MPI\EAF\Header;
+use MPI\EAF\Media\MediaResolver;
 use MPI\EAF\Parser\MediaParser;
 use MPI\EAF\Parser\PropertiesParser;
 use SimpleXMLElement;
@@ -12,6 +13,21 @@ use SimpleXMLElement;
  */
 class HeaderParser
 {
+    /**
+     * @var MediaResolver
+     */
+    private $mediaResolver;
+
+    /**
+     * Constructor
+     *
+     * @param MediaResolver $mediaResolver
+     */
+    public function __construct(MediaResolver $mediaResolver)
+    {
+        $this->mediaResolver = $mediaResolver;
+    }
+
     /**
      * Parse header
      *
@@ -27,7 +43,7 @@ class HeaderParser
 
             (string)$attributes['MEDIA_FILE'],
             (string)$attributes['TIME_UNITS'],
-            (new MediaParser)->parse($header->MEDIA_DESCRIPTOR),
+            (new MediaParser($this->mediaResolver))->parse($header->MEDIA_DESCRIPTOR),
             (new PropertiesParser)->parse($header->PROPERTY)
         );
     }

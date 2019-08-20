@@ -1,5 +1,5 @@
 <?php
-namespace MPI\EAF;
+namespace MPI\EAF\Media;
 
 use JsonSerializable;
 
@@ -46,6 +46,19 @@ class Media implements JsonSerializable
     public function getUrl(): string
     {
         return $this->url;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return self
+     */
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+        return $this;
     }
 
     /**

@@ -2,6 +2,7 @@
 namespace MPI\EAF;
 
 use MPI\EAF\Eaf;
+use MPI\Eaf\Media\MediaResolver;
 use MPI\EAF\Timeslot\Store as TimeslotStore;
 use MPI\EAF\LinguisticType\Store as LinguisticTypeStore;
 use MPI\EAF\Annotation\Store as AnnotationStore;
@@ -48,6 +49,11 @@ class Parser
     private $file;
 
     /**
+     * @var MediaResolver
+     */
+    private $mediaResolver;
+
+    /**
      * @var TimeslotStore
      */
     private $timeslotStore;
@@ -65,11 +71,13 @@ class Parser
     /**
      * Constructor
      *
-     * @param string $file
+     * @param string        $file
+     * @param MediaResolver $mediaResolver
      */
-    public function __construct($file)
+    public function __construct($file, MediaResolver $mediaResolver)
     {
-        $this->file = $file;
+        $this->file          = $file;
+        $this->mediaResolver = $mediaResolver;
     }
 
     /**
@@ -87,7 +95,7 @@ class Parser
         $this->tierStore           = (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($contents->TIER);
 
         $metadata = (new MetadataParser)->parse($contents);
-        $header   = (new HeaderParser)->parse($contents->HEADER);
+        $header   = (new HeaderParser($this->mediaResolver))->parse($contents->HEADER);
         $eaf      = new Eaf(
 
             $metadata,

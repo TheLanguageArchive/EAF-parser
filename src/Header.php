@@ -1,7 +1,7 @@
 <?php
 namespace MPI\EAF;
 
-use MPI\EAF\Media;
+use MPI\EAF\Media\Media;
 use MPI\EAF\Property;
 use JsonSerializable;
 
