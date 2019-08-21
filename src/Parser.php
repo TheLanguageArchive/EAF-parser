@@ -1,27 +1,27 @@
 <?php
-namespace MPI\EAF;
+namespace TLA\EAF;
 
-use MPI\EAF\Eaf;
-use MPI\Eaf\Media\MediaResolver;
-use MPI\EAF\Timeslot\Store as TimeslotStore;
-use MPI\EAF\LinguisticType\Store as LinguisticTypeStore;
-use MPI\EAF\Annotation\Store as AnnotationStore;
-use MPI\EAF\Annotation\Resolver\RefAnnotationResolver;
-use MPI\EAF\Parser\MetadataParser;
-use MPI\EAF\Parser\HeaderParser;
-use MPI\EAF\Parser\TimeslotParser;
-use MPI\EAF\Parser\TierParser;
-use MPI\EAF\Parser\LinguisticTypeParser;
-use MPI\EAF\Annotation\Sorter;
-use MPI\EAF\LinguisticType\SymbolicSubdivision;
-use MPI\EAF\LinguisticType\SymbolicAssociation;
-use MPI\EAF\LinguisticType\TimeSubdivision;
+use TLA\EAF\Eaf;
+use TLA\Eaf\Media\MediaResolver;
+use TLA\EAF\Timeslot\Store as TimeslotStore;
+use TLA\EAF\LinguisticType\Store as LinguisticTypeStore;
+use TLA\EAF\Annotation\Store as AnnotationStore;
+use TLA\EAF\Annotation\Resolver\RefAnnotationResolver;
+use TLA\EAF\Parser\MetadataParser;
+use TLA\EAF\Parser\HeaderParser;
+use TLA\EAF\Parser\TimeslotParser;
+use TLA\EAF\Parser\TierParser;
+use TLA\EAF\Parser\LinguisticTypeParser;
+use TLA\EAF\Annotation\Sorter;
+use TLA\EAF\LinguisticType\SymbolicSubdivision;
+use TLA\EAF\LinguisticType\SymbolicAssociation;
+use TLA\EAF\LinguisticType\TimeSubdivision;
 
 /**
  * Parser
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package EAF Parser
+ * @package TLA EAF Parser
  */
 class Parser
 {

@@ -1,12 +1,12 @@
 <?php
-namespace MPI\EAF\Parser;
+namespace TLA\EAF\Parser;
 
-use MPI\EAF\LinguisticType\Store as LinguisticTypeStore;
+use TLA\EAF\LinguisticType\Store as LinguisticTypeStore;
 use SimpleXMLElement;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class LinguisticTypeParser
 {

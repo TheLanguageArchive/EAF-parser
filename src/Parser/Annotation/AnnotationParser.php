@@ -1,16 +1,16 @@
 <?php
-namespace MPI\EAF\Parser\Annotation;
+namespace TLA\EAF\Parser\Annotation;
 
-use MPI\EAF\Annotation\Store as AnnotationStore;
-use MPI\EAF\Timeslot\Store as TimeslotStore;
-use MPI\EAF\Parser\Annotation\AlignableParser;
-use MPI\EAF\Parser\Annotation\RefParser;
+use TLA\EAF\Annotation\Store as AnnotationStore;
+use TLA\EAF\Timeslot\Store as TimeslotStore;
+use TLA\EAF\Parser\Annotation\AlignableParser;
+use TLA\EAF\Parser\Annotation\RefParser;
+use TLA\EAF\Annotation\AnnotationInterface;
 use SimpleXMLElement;
-use MPI\EAF\Annotation\AnnotationInterface;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class AnnotationParser
 {

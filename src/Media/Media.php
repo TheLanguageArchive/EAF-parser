@@ -1,11 +1,11 @@
 <?php
-namespace MPI\EAF\Media;
+namespace TLA\EAF\Media;
 
 use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Media implements JsonSerializable
 {

@@ -1,12 +1,12 @@
 <?php
-namespace MPI\EAF\Media;
+namespace TLA\EAF\Media;
 
 /**
  * Resolving media files in eaf from a
  * provided list of media items
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class MediaResolver
 {

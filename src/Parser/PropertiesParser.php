@@ -1,14 +1,14 @@
 <?php
-namespace MPI\EAF\Parser;
+namespace TLA\EAF\Parser;
 
+use TLA\EAF\Property;
 use SimpleXMLElement;
-use MPI\EAF\Property;
 
 /**
  * Properties parser
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class PropertiesParser
 {

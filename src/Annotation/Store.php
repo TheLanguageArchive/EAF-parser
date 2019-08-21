@@ -1,14 +1,13 @@
 <?php
-namespace MPI\EAF\Annotation;
+namespace TLA\EAF\Annotation;
 
-use MPI\EAF\Timeslot\NotFoundException;
+use TLA\EAF\Timeslot\NotFoundException;
 use Ds\Map;
-use Traversable;
 use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Store implements JsonSerializable
 {

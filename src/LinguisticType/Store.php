@@ -1,13 +1,12 @@
 <?php
-namespace MPI\EAF\LinguisticType;
+namespace TLA\EAF\LinguisticType;
 
 use Ds\Map;
 use JsonSerializable;
-use Traversable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Store implements JsonSerializable
 {

@@ -1,17 +1,17 @@
 <?php
-namespace MPI\EAF;
+namespace TLA\EAF;
 
-use MPI\EAF\Metadata;
-use MPI\EAF\Header;
-use MPI\EAF\Timeslot\Store as TimeslotStore;
-use MPI\EAF\Tier\Store as TierStore;
+use TLA\EAF\Metadata;
+use TLA\EAF\Header;
+use TLA\EAF\Timeslot\Store as TimeslotStore;
+use TLA\EAF\Tier\Store as TierStore;
 use JsonSerializable;
 
 /**
  * Eaf entity
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Eaf implements JsonSerializable
 {

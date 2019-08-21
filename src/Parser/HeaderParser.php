@@ -1,15 +1,15 @@
 <?php
-namespace MPI\EAF\Parser;
+namespace TLA\EAF\Parser;
 
-use MPI\EAF\Header;
-use MPI\EAF\Media\MediaResolver;
-use MPI\EAF\Parser\MediaParser;
-use MPI\EAF\Parser\PropertiesParser;
+use TLA\EAF\Header;
+use TLA\EAF\Media\MediaResolver;
+use TLA\EAF\Parser\MediaParser;
+use TLA\EAF\Parser\PropertiesParser;
 use SimpleXMLElement;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class HeaderParser
 {

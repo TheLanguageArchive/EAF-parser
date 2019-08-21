@@ -1,15 +1,15 @@
 <?php
-namespace MPI\EAF;
+namespace TLA\EAF;
 
-use MPI\EAF\Media\Media;
-use MPI\EAF\Property;
+use TLA\EAF\Media\Media;
+use TLA\EAF\Property;
 use JsonSerializable;
 
 /**
  * Header entity
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Header implements JsonSerializable
 {

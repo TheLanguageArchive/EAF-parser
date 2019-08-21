@@ -1,8 +1,8 @@
 <?php
-namespace MPI\EAF\Timeslot;
+namespace TLA\EAF\Timeslot;
 
-use MPI\EAF\Timeslot\Timeslot;
-use MPI\EAF\Timeslot\NotFoundException;
+use TLA\EAF\Timeslot\Timeslot;
+use TLA\EAF\Timeslot\NotFoundException;
 use Ds\Map;
 use JsonSerializable;
 
@@ -10,7 +10,7 @@ use JsonSerializable;
  * Timeslot store
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Store implements JsonSerializable
 {

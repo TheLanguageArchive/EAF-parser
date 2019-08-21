@@ -1,15 +1,15 @@
 <?php
-namespace MPI\EAF\Annotation;
+namespace TLA\EAF\Annotation;
 
-use MPI\EAF\Annotation\AnnotationInterface;
-use MPI\EAF\Timeslot\Timeslot;
+use TLA\EAF\Annotation\AnnotationInterface;
+use TLA\EAF\Timeslot\Timeslot;
 use JsonSerializable;
 
 /**
  * Alignable Annotation Entity
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class RefAnnotation implements AnnotationInterface, JsonSerializable
 {

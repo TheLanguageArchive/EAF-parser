@@ -1,5 +1,5 @@
 <?php
-namespace MPI\EAF\Annotation;
+namespace TLA\EAF\Annotation;
 
 use Exception;
 
@@ -7,7 +7,7 @@ use Exception;
  * NotFoundException
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class NotFoundException extends Exception
 {

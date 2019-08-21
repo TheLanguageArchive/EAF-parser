@@ -1,14 +1,14 @@
 <?php
-namespace MPI\EAF\Parser\Annotation;
+namespace TLA\EAF\Parser\Annotation;
 
+use TLA\EAF\Annotation\AlignableAnnotation;
+use TLA\EAF\Timeslot\Store;
+use TLA\EAF\Timeslot\NotFoundException;
 use SimpleXMLElement;
-use MPI\EAF\Annotation\AlignableAnnotation;
-use MPI\EAF\Timeslot\Store;
-use MPI\EAF\Timeslot\NotFoundException;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class AlignableParser
 {

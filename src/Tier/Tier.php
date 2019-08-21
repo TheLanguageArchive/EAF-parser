@@ -1,12 +1,12 @@
 <?php
-namespace MPI\EAF\Tier;
+namespace TLA\EAF\Tier;
 
-use MPI\EAF\Annotation\Store as AnnotationStore;
+use TLA\EAF\Annotation\Store as AnnotationStore;
 use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Tier implements JsonSerializable
 {

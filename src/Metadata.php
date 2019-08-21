@@ -1,5 +1,5 @@
 <?php
-namespace MPI\EAF;
+namespace TLA\EAF;
 
 use DateTime;
 use JsonSerializable;
@@ -8,7 +8,7 @@ use JsonSerializable;
  * Metadata entity
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah.mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Metadata implements JsonSerializable
 {

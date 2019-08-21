@@ -1,12 +1,12 @@
 <?php
-namespace MPI\EAF\Parser;
+namespace TLA\EAF\Parser;
 
-use MPI\EAF\Timeslot\Store as TimeslotStore;
+use TLA\EAF\Timeslot\Store as TimeslotStore;
 use SimpleXMLElement;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class TimeslotParser
 {

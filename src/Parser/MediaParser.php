@@ -1,13 +1,13 @@
 <?php
-namespace MPI\EAF\Parser;
+namespace TLA\EAF\Parser;
 
+use TLA\EAF\Media\Media;
+use TLA\EAF\Media\MediaResolver;
 use SimpleXMLElement;
-use MPI\EAF\Media\Media;
-use MPI\EAF\Media\MediaResolver;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class MediaParser
 {

@@ -1,11 +1,14 @@
 <?php
-namespace MPI\EAF\Annotation;
+namespace TLA\EAF\Annotation;
 
-use MPI\EAF\Tier\Tier;
+use TLA\EAF\Tier\Tier;
 use Ds\Vector;
 
 /**
  * Sorting annotation stores of tiers
+ *
+ * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
+ * @package TLA EAF Parser
  */
 class Sorter
 {

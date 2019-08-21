@@ -1,11 +1,11 @@
 <?php
-namespace MPI\EAF\Timeslot;
+namespace TLA\EAF\Timeslot;
 
 use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Timeslot implements JsonSerializable
 {

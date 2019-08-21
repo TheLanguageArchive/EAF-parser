@@ -1,12 +1,12 @@
 <?php
-namespace MPI\EAF\Parser\Annotation;
+namespace TLA\EAF\Parser\Annotation;
 
+use TLA\EAF\Annotation\RefAnnotation;
 use SimpleXMLElement;
-use MPI\EAF\Annotation\RefAnnotation;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class RefParser
 {

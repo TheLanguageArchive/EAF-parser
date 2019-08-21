@@ -1,17 +1,17 @@
 <?php
-namespace MPI\EAF\Parser;
+namespace TLA\EAF\Parser;
 
-use MPI\EAF\Tier\Tier;
-use MPI\EAF\LinguisticType\Store as LinguisticTypeStore;
-use MPI\EAF\Tier\Store as TierStore;
-use MPI\EAF\Timeslot\Store as TimeslotStore;
-use MPI\EAF\Annotation\Store as AnnotationStore;
-use MPI\EAF\Parser\Annotation\AnnotationParser;
+use TLA\EAF\Tier\Tier;
+use TLA\EAF\LinguisticType\Store as LinguisticTypeStore;
+use TLA\EAF\Tier\Store as TierStore;
+use TLA\EAF\Timeslot\Store as TimeslotStore;
+use TLA\EAF\Annotation\Store as AnnotationStore;
+use TLA\EAF\Parser\Annotation\AnnotationParser;
 use SimpleXMLElement;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class TierParser
 {

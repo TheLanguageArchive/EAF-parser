@@ -1,8 +1,8 @@
 <?php
-namespace MPI\EAF\LinguisticType;
+namespace TLA\EAF\LinguisticType;
 
-use MPI\EAF\Tier\Tier;
-use MPI\EAF\Timeslot\Timeslot;
+use TLA\EAF\Tier\Tier;
+use TLA\EAF\Timeslot\Timeslot;
 use Ds\Map;
 
 /**
@@ -16,7 +16,7 @@ use Ds\Map;
  *   and divide the previous annotations to get their virtual timeslots
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class TimeSubdivision
 {

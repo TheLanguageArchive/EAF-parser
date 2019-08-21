@@ -1,9 +1,9 @@
 <?php
-namespace MPI\EAF\LinguisticType;
+namespace TLA\EAF\LinguisticType;
 
-use MPI\EAF\Tier\Tier;
-use MPI\EAF\Timeslot\Timeslot;
-use MPI\EAF\Annotation\RefAnnotation;
+use TLA\EAF\Tier\Tier;
+use TLA\EAF\Timeslot\Timeslot;
+use TLA\EAF\Annotation\RefAnnotation;
 
 /**
  * SymbolicAssociation divides a tier's annotations
@@ -14,7 +14,7 @@ use MPI\EAF\Annotation\RefAnnotation;
  * - resolve time from top of tree
  *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class SymbolicAssociation
 {

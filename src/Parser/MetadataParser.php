@@ -1,13 +1,13 @@
 <?php
-namespace MPI\EAF\Parser;
+namespace TLA\EAF\Parser;
 
-use SimpleXMLElement;
-use MPI\EAF\Metadata;
+use TLA\EAF\Metadata;
 use DateTime;
+use SimpleXMLElement;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class MetadataParser
 {

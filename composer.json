@@ -1,5 +1,5 @@
 {
-    "name": "mpi/eaf-parser",
+    "name": "tla/eaf-parser",
     "version": "1.0.0",
     "description": "EAF annotation parser and resolver",
     "require-dev": {
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MPI\\EAF\\": "src/"
+            "TLA\\EAF\\": "src/"
         }
     }
 }

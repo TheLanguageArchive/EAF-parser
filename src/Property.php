@@ -1,11 +1,11 @@
 <?php
-namespace MPI\EAF;
+namespace TLA\EAF;
 
 use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Property implements JsonSerializable
 {

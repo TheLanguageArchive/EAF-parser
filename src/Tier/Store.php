@@ -1,14 +1,13 @@
 <?php
-namespace MPI\EAF\Tier;
+namespace TLA\EAF\Tier;
 
+use TLA\EAF\Tier\NotFoundException;
 use Ds\Map;
-use MPI\EAF\Tier\NotFoundException;
 use JsonSerializable;
-use Traversable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
- * @package MPI EAF Parser
+ * @package TLA EAF Parser
  */
 class Store implements JsonSerializable
 {
