@@ -16,6 +16,7 @@ use TLA\EAF\Annotation\Sorter;
 use TLA\EAF\LinguisticType\SymbolicSubdivision;
 use TLA\EAF\LinguisticType\SymbolicAssociation;
 use TLA\EAF\LinguisticType\TimeSubdivision;
+use SimpleXMLElement;
 
 /**
  * Parser
@@ -44,9 +45,9 @@ class Parser
     const LINGUISTIC_TYPE_INCLUDED_IN          = 'Included_In';
 
     /**
-     * @var string
+     * @var SimpleXMLElement
      */
-    private $file;
+    private $annotation;
 
     /**
      * @var MediaResolver
@@ -71,12 +72,12 @@ class Parser
     /**
      * Constructor
      *
-     * @param string        $file
-     * @param MediaResolver $mediaResolver
+     * @param SimpleXMLElement $annotation
+     * @param MediaResolver    $mediaResolver
      */
-    public function __construct($file, MediaResolver $mediaResolver)
+    public function __construct(SimpleXMLElement $annotation, MediaResolver $mediaResolver)
     {
-        $this->file          = $file;
+        $this->annotation    = $annotation;
         $this->mediaResolver = $mediaResolver;
     }
 
@@ -87,15 +88,13 @@ class Parser
      */
     public function parse(): Eaf
     {
-        $contents = simplexml_load_file($this->file);
-
-        $this->timeslotStore       = (new TimeslotParser)->parse($contents->TIME_ORDER->TIME_SLOT);
-        $this->linguisticTypeStore = (new LinguisticTypeParser)->parse($contents->LINGUISTIC_TYPE);
+        $this->timeslotStore       = (new TimeslotParser)->parse($this->annotation->TIME_ORDER->TIME_SLOT);
+        $this->linguisticTypeStore = (new LinguisticTypeParser)->parse($this->annotation->LINGUISTIC_TYPE);
         $this->annotationStore     = new AnnotationStore();
-        $this->tierStore           = (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($contents->TIER);
+        $this->tierStore           = (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($this->annotation->TIER);
 
-        $metadata = (new MetadataParser)->parse($contents);
-        $header   = (new HeaderParser($this->mediaResolver))->parse($contents->HEADER);
+        $metadata = (new MetadataParser)->parse($this->annotation);
+        $header   = (new HeaderParser($this->mediaResolver))->parse($this->annotation->HEADER);
         $eaf      = new Eaf(
 
             $metadata,
