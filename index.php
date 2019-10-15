@@ -4,7 +4,7 @@ use TLA\EAF\Media\MediaResolver;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$locations = ['example.mp4' => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/example.mp4'];
+$locations = ['example.mp4' => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/example.mp4', 'pear.wav' => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear.wav'];
 $parser    = new Parser(__DIR__ . '/example.eaf', new MediaResolver($locations));
 $result    = $parser->parse();
 

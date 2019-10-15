@@ -34,6 +34,16 @@ class Header implements JsonSerializable
     private $properties;
 
     /**
+     * @var Media
+     */
+    private $video;
+
+    /**
+     * @var Media
+     */
+    private $audio;
+
+    /**
      * Constructor
      *
      * @param string     $mediafile
@@ -47,6 +57,20 @@ class Header implements JsonSerializable
         $this->timeunits  = $timeunits;
         $this->media      = $media;
         $this->properties = $properties;
+        $this->video      = null;
+        $this->audio      = null;
+
+        // checking for video and audio
+        foreach ($this->media as $media) {
+
+            if ($media->getMimetype() === 'video/mp4') {
+                $this->video = $media;
+            }
+
+            if ($media->getMimetype() === 'audio/x-wav') {
+                $this->audio = $media;
+            }
+        }
     }
 
     /**
@@ -80,6 +104,26 @@ class Header implements JsonSerializable
     }
 
     /**
+     * Get video media file
+     *
+     * @return Media|false
+     */
+    public function getVideo(): ?Media
+    {
+        return $this->video;
+    }
+
+    /**
+     * Get audio media file
+     *
+     * @return Media|false
+     */
+    public function getAudio(): ?Media
+    {
+        return $this->audio;
+    }
+
+    /**
      * Get properties
      *
      * @return Property[]
@@ -101,6 +145,8 @@ class Header implements JsonSerializable
             'mediafile'  => $this->getMediaFile(),
             'timeunits'  => $this->getTimeUnits(),
             'media'      => $this->getMedia(),
+            'video'      => $this->getVideo(),
+            'audio'      => $this->getAudio(),
             'properties' => $this->getProperties(),
         ];
     }

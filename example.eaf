@@ -2,7 +2,7 @@
 <ANNOTATION_DOCUMENT AUTHOR="" DATE="2019-07-23T16:39:13+01:00" FORMAT="3.0" VERSION="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.mpi.nl/tools/elan/EAFv3.0.xsd">
     <HEADER MEDIA_FILE="" TIME_UNITS="milliseconds">
         <MEDIA_DESCRIPTOR MEDIA_URL="file:///Users/ibrabd/projects/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/example.mp4" MIME_TYPE="video/mp4" RELATIVE_MEDIA_URL="./example.mp4"/>
-        <MEDIA_DESCRIPTOR EXTRACTED_FROM="file:///Users/ibrabd/projects/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/example.mp4" MEDIA_URL="file:///Users/ibrabd/projects/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/pear.wav" MIME_TYPE="audio/x-wav" RELATIVE_MEDIA_URL="./pear.wav"/>
+        <MEDIA_DESCRIPTOR EXTRACTED_FROM="file:///Users/ibrabd/projects/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/example.mp4" MEDIA_URL="/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/pear.wav" MIME_TYPE="audio/x-wav" RELATIVE_MEDIA_URL="./pear.wav"/>
         <PROPERTY NAME="URN">urn:nl-mpi-tools-elan-eaf:c54730fd-f164-4791-b0d5-d95087fe901c</PROPERTY>
         <PROPERTY NAME="lastUsedAnnotationId">147</PROPERTY>
     </HEADER>
