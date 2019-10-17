@@ -79,6 +79,19 @@ class Media implements JsonSerializable
     }
 
     /**
+     * Set mimetype
+     *
+     * @param string $mimetype
+     *
+     * @return self
+     */
+    public function setMimetype(string $mimetype): self
+    {
+        $this->mimetype = $mimetype;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getRelative(): string

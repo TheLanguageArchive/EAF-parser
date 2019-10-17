@@ -42,7 +42,12 @@ class MediaResolver
             return null;
         }
 
-        $media->setUrl($this->locations[$filename]);
+        $media->setUrl($this->locations[$filename]['url']);
+
+        if (false !== $this->locations[$filename]['mimetype']) {
+            $media->setMimetype($this->locations[$filename]['mimetype']);
+        }
+
         return $media;
     }
 }
