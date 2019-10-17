@@ -30,13 +30,13 @@ class MediaResolver
      */
     public function resolve(Media $media): ?Media
     {
-        $pathinfo = $media->getRelative();
+        $path = $media->getRelative();
 
-        if (!$pathinfo && $media->getUrl()) {
-            $pathinfo = $media->getUrl();
+        if (!$path && $media->getUrl()) {
+            $path = $media->getUrl();
         }
 
-        $filename = pathinfo($pathinfo, PATHINFO_BASENAME);
+        $filename = pathinfo($path, PATHINFO_BASENAME);
 
         if (!isset($this->locations[$filename])) {
             return null;

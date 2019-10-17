@@ -63,11 +63,11 @@ class Header implements JsonSerializable
         // checking for video and audio
         foreach ($this->media as $media) {
 
-            if ($media->getMimetype() === 'video/mp4') {
+            if (false === $media->isAudio()) {
                 $this->video = $media;
             }
 
-            if ($media->getMimetype() === 'audio/x-wav') {
+            if (true === $media->isAudio()) {
                 $this->audio = $media;
             }
         }

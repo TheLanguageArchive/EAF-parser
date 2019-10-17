@@ -25,17 +25,24 @@ class Media implements JsonSerializable
     private $relative;
 
     /**
+     * @var boolean
+     */
+    private $audio;
+
+    /**
      * Constructor
      *
-     * @param string $url
-     * @param string $mimetype
-     * @param string $relative
+     * @param string  $url
+     * @param string  $mimetype
+     * @param string  $relative
+     * @param boolean $audio
      */
-    public function __construct(string $url, string $mimetype, string $relative)
+    public function __construct(string $url, string $mimetype, string $relative, bool $audio)
     {
         $this->url      = $url;
         $this->mimetype = $mimetype;
         $this->relative = $relative;
+        $this->audio    = $audio;
     }
 
     /**
@@ -80,6 +87,14 @@ class Media implements JsonSerializable
     }
 
     /**
+     * @return boolean
+     */
+    public function isAudio(): bool
+    {
+        return $this->audio;
+    }
+
+    /**
      * json_encode calls this method
      *
      * @return array
@@ -91,6 +106,7 @@ class Media implements JsonSerializable
             'url'      => $this->getUrl(),
             'mimetype' => $this->getMimetype(),
             'relative' => $this->getRelative(),
+            'audio'    => $this->isAudio(),
         ];
     }
 }
