@@ -2,7 +2,7 @@
 namespace TLA\EAF;
 
 use TLA\EAF\Eaf;
-use TLA\Eaf\Media\MediaResolver;
+use TLA\EAF\Media\Resolver;
 use TLA\EAF\Timeslot\Store as TimeslotStore;
 use TLA\EAF\LinguisticType\Store as LinguisticTypeStore;
 use TLA\EAF\Annotation\Store as AnnotationStore;
@@ -50,7 +50,7 @@ class Parser
     private $annotation;
 
     /**
-     * @var MediaResolver
+     * @var Resolver
      */
     private $mediaResolver;
 
@@ -73,9 +73,9 @@ class Parser
      * Constructor
      *
      * @param SimpleXMLElement $annotation
-     * @param MediaResolver    $mediaResolver
+     * @param Resolver         $mediaResolver
      */
-    public function __construct(SimpleXMLElement $annotation, MediaResolver $mediaResolver)
+    public function __construct(SimpleXMLElement $annotation, Resolver $mediaResolver)
     {
         $this->annotation    = $annotation;
         $this->mediaResolver = $mediaResolver;
@@ -88,6 +88,19 @@ class Parser
      */
     public function parse(): Eaf
     {
+        $eaf = $this->createEaf();
+        $this->normalize();
+
+        return $eaf;
+    }
+
+    /**
+     * Creating eaf and storing data in stores
+     *
+     * @return Eaf
+     */
+    private function createEaf(): Eaf
+    {
         $this->timeslotStore       = (new TimeslotParser)->parse($this->annotation->TIME_ORDER->TIME_SLOT);
         $this->linguisticTypeStore = (new LinguisticTypeParser)->parse($this->annotation->LINGUISTIC_TYPE);
         $this->annotationStore     = new AnnotationStore();
@@ -95,14 +108,27 @@ class Parser
 
         $metadata = (new MetadataParser)->parse($this->annotation);
         $header   = (new HeaderParser($this->mediaResolver))->parse($this->annotation->HEADER);
-        $eaf      = new Eaf(
+
+        return new Eaf(
 
             $metadata,
             $header,
             $this->timeslotStore,
             $this->tierStore
         );
+    }
 
+    /**
+     * Normalizing data:
+     * - resolving references
+     * - sorting
+     * - associating
+     * - fixing timestamps
+     *
+     * @return void
+     */
+    private function normalize()
+    {
         $resolver = new RefAnnotationResolver($this->annotationStore);
         $resolver->resolve();
 
@@ -129,7 +155,5 @@ class Parser
                 $subdivision->divide($tier);
             }
         }
-
-        return $eaf;
     }
 }

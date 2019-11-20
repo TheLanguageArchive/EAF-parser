@@ -10,6 +10,11 @@ use JsonSerializable;
 class Media implements JsonSerializable
 {
     /**
+     * @var int
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $url;
@@ -32,17 +37,29 @@ class Media implements JsonSerializable
     /**
      * Constructor
      *
+     * @param integer $id
      * @param string  $url
      * @param string  $mimetype
      * @param string  $relative
      * @param boolean $audio
      */
-    public function __construct(string $url, string $mimetype, string $relative, bool $audio)
+    public function __construct(int $id, string $url, string $mimetype, string $relative, bool $audio)
     {
+        $this->id       = $id;
         $this->url      = $url;
         $this->mimetype = $mimetype;
         $this->relative = $relative;
         $this->audio    = $audio;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
@@ -116,6 +133,7 @@ class Media implements JsonSerializable
     {
         return [
 
+            'id'       => $this->getId(),
             'url'      => $this->getUrl(),
             'mimetype' => $this->getMimetype(),
             'relative' => $this->getRelative(),

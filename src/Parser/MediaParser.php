@@ -2,7 +2,8 @@
 namespace TLA\EAF\Parser;
 
 use TLA\EAF\Media\Media;
-use TLA\EAF\Media\MediaResolver;
+use TLA\EAF\Media\Manager;
+use TLA\EAF\Media\Resolver;
 use SimpleXMLElement;
 
 /**
@@ -12,16 +13,16 @@ use SimpleXMLElement;
 class MediaParser
 {
     /**
-     * @var MediaResolver
+     * @var Resolver
      */
     private $mediaResolver;
 
     /**
      * Constructor
      *
-     * @param MediaResolver $mediaResolver
+     * @param Resolver $mediaResolver
      */
-    public function __construct(MediaResolver $mediaResolver)
+    public function __construct(Resolver $mediaResolver)
     {
         $this->mediaResolver = $mediaResolver;
     }
@@ -29,18 +30,20 @@ class MediaParser
     /**
      * Parsing media items
      *
-     * @param SimpleXMLElement $items
-     * @return Media[]
+     * @param  SimpleXMLElement $items
+     * @return Manager
      */
-    public function parse(SimpleXMLElement $items): array
+    public function parse(SimpleXMLElement $items): Manager
     {
         $media = [];
+        $id    = 0;
 
         foreach ($items as $item) {
 
             $attributes = $item->attributes();
             $resolved   = $this->mediaResolver->resolve(new Media(
 
+                $id,
                 (string)$attributes['MEDIA_URL'],
                 (string)$attributes['MIME_TYPE'],
                 (string)$attributes['RELATIVE_MEDIA_URL'],
@@ -48,10 +51,12 @@ class MediaParser
             ));
 
             if (null !== $resolved) {
+
+                $id     += 1;
                 $media[] = $resolved;
             }
         }
 
-        return $media;
+        return new Manager($media);
     }
 }

@@ -1,12 +1,20 @@
 <?php
 use TLA\EAF\Parser;
-use TLA\EAF\Media\MediaResolver;
+use TLA\EAF\Media\Resolver;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$locations = ['example.mp4' => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/example.mp4', 'pear.wav' => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear.wav'];
-$parser    = new Parser(__DIR__ . '/example.eaf', new MediaResolver($locations));
-$result    = $parser->parse();
+$locations = [
+    'elan-example1.mpg' => [
+
+        'url' => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/example.mp4',
+        'mimetype' => false,
+    ],
+
+];
+
+$parser = new Parser(simplexml_load_file(__DIR__ . '/example2.eaf'), new Resolver($locations));
+$eaf    = $parser->parse();
 
 header('Content-Type: application/json');
-echo json_encode($result);
+echo json_encode($eaf);

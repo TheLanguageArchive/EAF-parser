@@ -2,7 +2,7 @@
 namespace TLA\EAF\Parser;
 
 use TLA\EAF\Header;
-use TLA\EAF\Media\MediaResolver;
+use TLA\EAF\Media\Resolver;
 use TLA\EAF\Parser\MediaParser;
 use TLA\EAF\Parser\PropertiesParser;
 use SimpleXMLElement;
@@ -14,16 +14,16 @@ use SimpleXMLElement;
 class HeaderParser
 {
     /**
-     * @var MediaResolver
+     * @var Resolver
      */
     private $mediaResolver;
 
     /**
      * Constructor
      *
-     * @param MediaResolver $mediaResolver
+     * @param Resolver $mediaResolver
      */
-    public function __construct(MediaResolver $mediaResolver)
+    public function __construct(Resolver $mediaResolver)
     {
         $this->mediaResolver = $mediaResolver;
     }

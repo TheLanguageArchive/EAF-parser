@@ -1,7 +1,7 @@
 <?php
 namespace TLA\EAF;
 
-use TLA\EAF\Media\Media;
+use TLA\EAF\Media\Manager;
 use TLA\EAF\Property;
 use JsonSerializable;
 
@@ -24,9 +24,9 @@ class Header implements JsonSerializable
     private $timeunits;
 
     /**
-     * @var Media[]
+     * @var Manager
      */
-    private $media;
+    private $mediaManager;
 
     /**
      * @var Property[]
@@ -34,43 +34,19 @@ class Header implements JsonSerializable
     private $properties;
 
     /**
-     * @var Media
-     */
-    private $video;
-
-    /**
-     * @var Media
-     */
-    private $audio;
-
-    /**
      * Constructor
      *
      * @param string     $mediafile
      * @param string     $timeunits
-     * @param Media[]    $media
+     * @param Manager    $mediaManager
      * @param Property[] $properties
      */
-    public function __construct(string $mediafile, string $timeunits, array $media, array $properties)
+    public function __construct(string $mediafile, string $timeunits, Manager $mediaManager, array $properties)
     {
-        $this->mediafile  = $mediafile;
-        $this->timeunits  = $timeunits;
-        $this->media      = $media;
-        $this->properties = $properties;
-        $this->video      = null;
-        $this->audio      = null;
-
-        // checking for video and audio
-        foreach ($this->media as $media) {
-
-            if (false === $media->isAudio()) {
-                $this->video = $media;
-            }
-
-            if (true === $media->isAudio()) {
-                $this->audio = $media;
-            }
-        }
+        $this->mediafile    = $mediafile;
+        $this->timeunits    = $timeunits;
+        $this->mediaManager = $mediaManager;
+        $this->properties   = $properties;
     }
 
     /**
@@ -94,33 +70,13 @@ class Header implements JsonSerializable
     }
 
     /**
-     * Get media items
+     * Get media manager
      *
-     * @return Media[]
+     * @return Manager
      */
-    public function getMedia(): array
+    public function getMediaManager(): Manager
     {
-        return $this->media;
-    }
-
-    /**
-     * Get video media file
-     *
-     * @return Media|false
-     */
-    public function getVideo(): ?Media
-    {
-        return $this->video;
-    }
-
-    /**
-     * Get audio media file
-     *
-     * @return Media|false
-     */
-    public function getAudio(): ?Media
-    {
-        return $this->audio;
+        return $this->mediaManager;
     }
 
     /**
@@ -144,9 +100,7 @@ class Header implements JsonSerializable
 
             'mediafile'  => $this->getMediaFile(),
             'timeunits'  => $this->getTimeUnits(),
-            'media'      => $this->getMedia(),
-            'video'      => $this->getVideo(),
-            'audio'      => $this->getAudio(),
+            'media'      => $this->getMediaManager(),
             'properties' => $this->getProperties(),
         ];
     }
