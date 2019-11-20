@@ -17,6 +17,11 @@ class Media implements JsonSerializable
     /**
      * @var string
      */
+    private $filename;
+
+    /**
+     * @var string
+     */
     private $url;
 
     /**
@@ -38,14 +43,16 @@ class Media implements JsonSerializable
      * Constructor
      *
      * @param integer $id
+     * @param string  $filename
      * @param string  $url
      * @param string  $mimetype
      * @param string  $relative
      * @param boolean $audio
      */
-    public function __construct(int $id, string $url, string $mimetype, string $relative, bool $audio)
+    public function __construct(int $id, string $filename, string $url, string $mimetype, string $relative, bool $audio)
     {
         $this->id       = $id;
+        $this->filename = $filename;
         $this->url      = $url;
         $this->mimetype = $mimetype;
         $this->relative = $relative;
@@ -60,6 +67,16 @@ class Media implements JsonSerializable
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return string
+     */
+    public function getFilename(): string
+    {
+        return $this->filename;
     }
 
     /**
@@ -134,6 +151,7 @@ class Media implements JsonSerializable
         return [
 
             'id'       => $this->getId(),
+            'filename' => $this->getFilename(),
             'url'      => $this->getUrl(),
             'mimetype' => $this->getMimetype(),
             'relative' => $this->getRelative(),

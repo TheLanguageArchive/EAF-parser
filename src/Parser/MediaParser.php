@@ -41,12 +41,23 @@ class MediaParser
         foreach ($items as $item) {
 
             $attributes = $item->attributes();
-            $resolved   = $this->mediaResolver->resolve(new Media(
+
+            $relative = (string)$attributes['RELATIVE_MEDIA_URL'];
+            $url      = (string)$attributes['MEDIA_URL'];
+            $path     = $relative;
+
+            if (!$path && $url) {
+                $path = $url;
+            }
+
+            $filename = pathinfo($path, PATHINFO_BASENAME);
+            $resolved = $this->mediaResolver->resolve(new Media(
 
                 $id,
-                (string)$attributes['MEDIA_URL'],
+                $filename,
+                $url,
                 (string)$attributes['MIME_TYPE'],
-                (string)$attributes['RELATIVE_MEDIA_URL'],
+                $relative,
                 isset($attributes['EXTRACTED_FROM'])
             ));
 
