@@ -40,6 +40,11 @@ class Media implements JsonSerializable
     private $audio;
 
     /**
+     * @var integer
+     */
+    private $offset;
+
+    /**
      * Constructor
      *
      * @param integer $id
@@ -48,8 +53,9 @@ class Media implements JsonSerializable
      * @param string  $mimetype
      * @param string  $relative
      * @param boolean $audio
+     * @param integer $offset
      */
-    public function __construct(int $id, string $filename, string $url, string $mimetype, string $relative, bool $audio)
+    public function __construct(int $id, string $filename, string $url, string $mimetype, string $relative, bool $audio, int $offset)
     {
         $this->id       = $id;
         $this->filename = $filename;
@@ -57,6 +63,7 @@ class Media implements JsonSerializable
         $this->mimetype = $mimetype;
         $this->relative = $relative;
         $this->audio    = $audio;
+        $this->offset   = $offset;
     }
 
     /**
@@ -142,6 +149,14 @@ class Media implements JsonSerializable
     }
 
     /**
+     * @return integer
+     */
+    public function getOffset(): int
+    {
+        return $this->offset;
+    }
+
+    /**
      * json_encode calls this method
      *
      * @return array
@@ -156,6 +171,7 @@ class Media implements JsonSerializable
             'mimetype' => $this->getMimetype(),
             'relative' => $this->getRelative(),
             'audio'    => $this->isAudio(),
+            'offset'   => $this->getOffset(),
         ];
     }
 }

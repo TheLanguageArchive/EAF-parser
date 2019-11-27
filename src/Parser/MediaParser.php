@@ -42,6 +42,7 @@ class MediaParser
 
             $attributes = $item->attributes();
 
+            $offset   = isset($attributes['TIME_ORIGIN']) ? (int)$attributes['TIME_ORIGIN'] : 0;
             $relative = (string)$attributes['RELATIVE_MEDIA_URL'];
             $url      = (string)$attributes['MEDIA_URL'];
             $path     = $relative;
@@ -58,7 +59,8 @@ class MediaParser
                 $url,
                 (string)$attributes['MIME_TYPE'],
                 $relative,
-                isset($attributes['EXTRACTED_FROM'])
+                isset($attributes['EXTRACTED_FROM']),
+                $offset
             ));
 
             if (null !== $resolved) {
