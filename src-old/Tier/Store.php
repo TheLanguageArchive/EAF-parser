@@ -1,18 +1,14 @@
 <?php
-namespace TLA\EAF\Timeslot;
+namespace TLA\EAF\Tier;
 
-use TLA\EAF\Timeslot\Timeslot;
-use TLA\EAF\Timeslot\NotFoundException;
+use TLA\EAF\Tier\NotFoundException;
 use Ds\Map;
-use JsonSerializable;
 
 /**
- * Timeslot store
- *
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Store implements JsonSerializable
+class Store
 {
     /**
      * @var Map
@@ -28,33 +24,32 @@ class Store implements JsonSerializable
     }
 
     /**
-     * Add timeslot to store
+     * Adding tier to store
      *
      * @param string $id
-     * @param integer $time
+     * @param Tier   $tier
      *
      * @return self
      */
-    public function add(string $id, ?int $time = null)
+    public function add(string $id, Tier $tier): self
     {
-        $this->store->put($id, new Timeslot($id, $time));
+        $this->store->put($id, $tier);
         return $this;
     }
 
     /**
-     * Get timeslot if exists
+     * Undocumented function
      *
      * @param string $id
-     * @return Timeslot
-     * @throws Exception
+     * @return Tier
      */
-    public function get(string $id): Timeslot
+    public function get(string $id): Tier
     {
         if ($this->store->hasKey($id)) {
             return $this->store->get($id);
         }
 
-        throw new NotFoundException('Timeslot not found');
+        throw new NotFoundException('Tier was not found');
     }
 
     /**
@@ -68,18 +63,18 @@ class Store implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
-        $timeslots = [];
+        $tiers = [];
 
-        foreach ($this->getStorage() as $timeslot) {
-            $timeslots[] = $timeslot;
+        foreach ($this->getStorage() as $tier) {
+            $tiers[] = $tier->toArray();
         }
 
-        return $timeslots;
+        return $tiers;
     }
 }

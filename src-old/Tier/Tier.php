@@ -2,13 +2,12 @@
 namespace TLA\EAF\Tier;
 
 use TLA\EAF\Annotation\Store as AnnotationStore;
-use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Tier implements JsonSerializable
+class Tier
 {
     /**
      * @var string
@@ -104,17 +103,17 @@ class Tier implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [
 
             'id'              => $this->getId(),
             'locale'          => $this->getLocale(),
-            'annotations'     => $this->getAnnotationStore(),
+            'annotations'     => $this->getAnnotationStore()->toArray(),
             'linguistic_type' => $this->getLinguisticType(),
         ];
     }

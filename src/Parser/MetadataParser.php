@@ -1,7 +1,6 @@
 <?php
 namespace TLA\EAF\Parser;
 
-use TLA\EAF\Metadata;
 use DateTime;
 use SimpleXMLElement;
 
@@ -14,19 +13,20 @@ class MetadataParser
     /**
      * Parsing metadata
      *
-     * @param SimpleXMLElement $metadata
-     * @return Metadata
+     * @param SimpleXMLElement $item
+     *
+     * @return array
      */
-    public function parse(SimpleXMLElement $metadata): Metadata
+    public static function parse(SimpleXMLElement $item): array
     {
-        $attributes = $metadata->attributes();
+        $attributes = $item->attributes();
 
-        return new Metadata(
+        return [
 
-            (string)$attributes['AUTHOR'],
-            new DateTime((string)$attributes['DATE']),
-            (string)$attributes['FORMAT'],
-            (string)$attributes['VERSION']
-        );
+            'author'  => (string)$attributes['AUTHOR'],
+            'date'    => (new DateTime((string)$attributes['DATE']))->getTimestamp(),
+            'format'  => (string)$attributes['FORMAT'],
+            'version' => (string)$attributes['VERSION'],
+        ];
     }
 }

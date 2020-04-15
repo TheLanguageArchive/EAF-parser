@@ -1,13 +1,11 @@
 <?php
 namespace TLA\EAF;
 
-use JsonSerializable;
-
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Property implements JsonSerializable
+class Property
 {
     /**
      * @var string
@@ -52,11 +50,11 @@ class Property implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [
 

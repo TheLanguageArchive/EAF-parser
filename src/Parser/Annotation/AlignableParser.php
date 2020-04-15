@@ -1,9 +1,7 @@
 <?php
 namespace TLA\EAF\Parser\Annotation;
 
-use TLA\EAF\Annotation\AlignableAnnotation;
-use TLA\EAF\Timeslot\Store;
-use TLA\EAF\Timeslot\NotFoundException;
+use TLA\EAF\Parser;
 use SimpleXMLElement;
 
 /**
@@ -13,36 +11,23 @@ use SimpleXMLElement;
 class AlignableParser
 {
     /**
-     * Injecting timeslot store
-     *
-     * @param Store $store
-     */
-    public function __construct(Store $store)
-    {
-        $this->store = $store;
-    }
-
-    /**
      * Parse alignable annotation
      *
-     * @param SimpleXMLElement $annotation
+     * @param SimpleXMLElement $item
      *
-     * @return AlignableAnnotation
-     * @throws NotFoundException
+     * @return array
      */
-    public function parse(SimpleXMLElement $annotation): AlignableAnnotation
+    public static function parse(SimpleXMLElement $item): array
     {
-        $attributes = $annotation->attributes();
+        $attributes = $item->attributes();
 
-        $start = $this->store->get((string)$attributes['TIME_SLOT_REF1']);
-        $end   = $this->store->get((string)$attributes['TIME_SLOT_REF2']);
+        return [
 
-        return new AlignableAnnotation(
-
-            (string)$attributes['ANNOTATION_ID'],
-            (string)$annotation->ANNOTATION_VALUE,
-            $start,
-            $end
-        );
+            'id'    => (string)$attributes['ANNOTATION_ID'],
+            'type'  => Parser::ANNOTATION_TYPE_ALIGNABLE,
+            'value' => (string)$item->ANNOTATION_VALUE,
+            'start' => (string)$attributes['TIME_SLOT_REF1'],
+            'end'   => (string)$attributes['TIME_SLOT_REF2'],
+        ];
     }
 }

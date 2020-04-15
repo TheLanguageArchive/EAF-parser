@@ -3,13 +3,12 @@ namespace TLA\EAF\Annotation;
 
 use TLA\EAF\Timeslot\NotFoundException;
 use Ds\Map;
-use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Store implements JsonSerializable
+class Store
 {
     /**
      * @var Map
@@ -123,16 +122,16 @@ class Store implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         $annotations = [];
 
         foreach ($this->getStorage() as $annotation) {
-            $annotations[] = $annotation;
+            $annotations[] = $annotation->toArray();
         }
 
         return $annotations;

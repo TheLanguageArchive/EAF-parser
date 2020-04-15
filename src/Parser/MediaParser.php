@@ -1,9 +1,7 @@
 <?php
 namespace TLA\EAF\Parser;
 
-use TLA\EAF\Media\Media;
-use TLA\EAF\Media\Manager;
-use TLA\EAF\Media\Resolver;
+use TLA\EAF\Resolver\MediaResolver;
 use SimpleXMLElement;
 
 /**
@@ -13,27 +11,14 @@ use SimpleXMLElement;
 class MediaParser
 {
     /**
-     * @var Resolver
-     */
-    private $mediaResolver;
-
-    /**
-     * Constructor
-     *
-     * @param Resolver $mediaResolver
-     */
-    public function __construct(Resolver $mediaResolver)
-    {
-        $this->mediaResolver = $mediaResolver;
-    }
-
-    /**
      * Parsing media items
      *
-     * @param  SimpleXMLElement $items
-     * @return Manager
+     * @param SimpleXMLElement $items
+     * @param MediaResolver    $mediaResolver
+     *
+     * @return array
      */
-    public function parse(SimpleXMLElement $items): Manager
+    public static function parse(SimpleXMLElement $items, MediaResolver $mediaResolver): array
     {
         $media = [];
         $id    = 0;
@@ -52,24 +37,29 @@ class MediaParser
             }
 
             $filename = pathinfo($path, PATHINFO_BASENAME);
-            $resolved = $this->mediaResolver->resolve(new Media(
+            $resolved = $mediaResolver->resolve([
 
-                $id,
-                $filename,
-                $url,
-                (string)$attributes['MIME_TYPE'],
-                $relative,
-                isset($attributes['EXTRACTED_FROM']),
-                $offset
-            ));
+                'id'       => $id,
+                'filename' => $filename,
+                'url'      => $url,
+                'mimetype' => (string)$attributes['MIME_TYPE'],
+                'relative' => $relative,
+                'audio'    => isset($attributes['EXTRACTED_FROM']),
+                'offset'   => $offset
+            ]);
 
-            if (null !== $resolved) {
+            if (false !== $resolved) {
 
                 $id     += 1;
                 $media[] = $resolved;
             }
         }
 
-        return new Manager($media);
+        return [
+
+            'media' => $media,
+            'count' => count($media),
+            'first' => current($media) ?? null,
+        ];
     }
 }

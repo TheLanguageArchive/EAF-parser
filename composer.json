@@ -14,8 +14,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.1.0",
-        "php-ds/php-ds": "dev-master"
+        "php": ">=7.2.0"
     },
     "autoload": {
         "psr-4": {

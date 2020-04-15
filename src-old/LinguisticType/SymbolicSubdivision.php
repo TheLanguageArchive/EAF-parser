@@ -1,6 +1,9 @@
 <?php
 namespace TLA\EAF\LinguisticType;
 
+use TLA\EAF\Annotation\RefAnnotation;
+use TLA\EAF\Annotation\AlignableAnnotation;
+use TLA\EAF\Annotation\AnnotationInterface;
 use TLA\EAF\Tier\Tier;
 use TLA\EAF\Timeslot\Timeslot;
 
@@ -29,7 +32,7 @@ class SymbolicSubdivision
         // symbolic subdivision needs the referenced annotation
         // to divide the timeslots evenly between the start and end
         $first      = $tier->getAnnotationStore()->first();
-        $referenced = $first->getReferencedAnnotation();
+        $referenced = $this->getReferencedAnnotation($first);
         $store      = $tier->getAnnotationStore();
         $total      = $store->count();
 
@@ -48,10 +51,28 @@ class SymbolicSubdivision
             $customStart += $duration;
             $customEnd   += $duration;
 
-            $referenced  = $annotation->getReferencedAnnotation();
+            $referenced  = $this->getReferencedAnnotation($annotation);
 
             $annotation->setCustomStart(new Timeslot('custom-' . $referenced->getStart()->getId(), $customStart));
             $annotation->setCustomEnd(new Timeslot('custom-' . $referenced->getEnd()->getId(), $customEnd));
+        }
+    }
+
+    /**
+     * Get referenced annotation
+     *
+     * @param AnnotationInterface $annotation
+     *
+     * @return AnnotationInterface
+     */
+    public function getReferencedAnnotation(AnnotationInterface $annotation)
+    {
+        $referenced = $annotation->getReferencedAnnotation();
+        if ($referenced instanceof AlignableAnnotation) {
+            return $referenced;
+        }
+         if ($referenced instanceof RefAnnotation) {
+            return $referenced->getReferencedAnnotation();
         }
     }
 }

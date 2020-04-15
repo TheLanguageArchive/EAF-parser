@@ -1,13 +1,11 @@
 <?php
 namespace TLA\EAF\Timeslot;
 
-use JsonSerializable;
-
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Timeslot implements JsonSerializable
+class Timeslot
 {
     /**
      * @var string
@@ -52,11 +50,11 @@ class Timeslot implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [
 

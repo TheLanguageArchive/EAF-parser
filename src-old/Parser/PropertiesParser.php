@@ -1,6 +1,7 @@
 <?php
 namespace TLA\EAF\Parser;
 
+use TLA\EAF\Property;
 use SimpleXMLElement;
 
 /**
@@ -16,19 +17,19 @@ class PropertiesParser
      *
      * @param SimpleXMLElement $items
      *
-     * @return array
+     * @return Property[]
      */
-    public static function parse(SimpleXMLElement $items): array
+    public function parse(SimpleXMLElement $items): array
     {
         $properties = [];
 
         foreach ($items as $item) {
 
-            $properties[] = [
+            $properties[] = new Property(
 
-                'name' => (string)$item->attributes()['NAME'],
-                'value' => (string)$item,
-            ];
+                (string)$item->attributes()['NAME'],
+                (string)$item
+            );
         }
 
         return $properties;

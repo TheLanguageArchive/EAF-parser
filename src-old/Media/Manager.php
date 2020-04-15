@@ -2,13 +2,12 @@
 namespace TLA\EAF\Media;
 
 use TLA\EAF\Media\Media;
-use JsonSerializable;
 
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Manager implements JsonSerializable
+class Manager
 {
     /**
      * @var Media[]
@@ -56,17 +55,24 @@ class Manager implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
+        $media = array_map(function($item) {
+            return $item->toArray();
+        }, $this->media());
+
+        $first = $this->first();
+        $first = $first instanceof Media ? $first->toArray() : null;
+
         return [
 
-            'media' => $this->media(),
+            'media' => $media,
             'count' => $this->count(),
-            'first' => $this->first(),
+            'first' => $first,
         ];
     }
 }

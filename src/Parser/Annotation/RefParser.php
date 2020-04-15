@@ -1,7 +1,7 @@
 <?php
 namespace TLA\EAF\Parser\Annotation;
 
-use TLA\EAF\Annotation\RefAnnotation;
+use TLA\EAF\Parser;
 use SimpleXMLElement;
 
 /**
@@ -11,23 +11,24 @@ use SimpleXMLElement;
 class RefParser
 {
     /**
-     * Parsing ref annotations
+     * Parsing ref annotation
      *
-     * @param SimpleXMLElement $items
+     * @param SimpleXMLElement $item
      *
-     * @return RefAnnotation
+     * @return array
      */
-    public function parse(SimpleXMLElement $annotation): RefAnnotation
+    public static function parse(SimpleXMLElement $item): array
     {
-        $attributes = $annotation->attributes();
+        $attributes = $item->attributes();
         $previous   = isset($attributes['PREVIOUS_ANNOTATION']) ? (string)$attributes['PREVIOUS_ANNOTATION'] : null;
 
-        return new RefAnnotation(
+        return [
 
-            (string)$attributes['ANNOTATION_ID'],
-            (string)$annotation->ANNOTATION_VALUE,
-            (string)$attributes['ANNOTATION_REF'],
-            $previous
-        );
+            'id'       => (string)$attributes['ANNOTATION_ID'],
+            'type'     => Parser::ANNOTATION_TYPE_REF,
+            'value'    => (string)$item->ANNOTATION_VALUE,
+            'ref'      => (string)$attributes['ANNOTATION_REF'],
+            'previous' => $previous,
+        ];
     }
 }

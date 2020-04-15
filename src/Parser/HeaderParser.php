@@ -1,9 +1,6 @@
 <?php
 namespace TLA\EAF\Parser;
 
-use TLA\EAF\Header;
-use TLA\EAF\Media\Resolver;
-use TLA\EAF\Parser\MediaParser;
 use TLA\EAF\Parser\PropertiesParser;
 use SimpleXMLElement;
 
@@ -14,37 +11,22 @@ use SimpleXMLElement;
 class HeaderParser
 {
     /**
-     * @var Resolver
-     */
-    private $mediaResolver;
-
-    /**
-     * Constructor
-     *
-     * @param Resolver $mediaResolver
-     */
-    public function __construct(Resolver $mediaResolver)
-    {
-        $this->mediaResolver = $mediaResolver;
-    }
-
-    /**
      * Parse header
      *
-     * @param SimpleXMLElement $header
+     * @param SimpleXMLElement $item
      *
-     * @return Header
+     * @return array
      */
-    public function parse(SimpleXMLElement $header): Header
+    public static function parse(SimpleXMLElement $item): array
     {
-        $attributes = $header->attributes();
+        $attributes = $item->attributes();
 
-        return new Header(
+        return [
 
-            (string)$attributes['MEDIA_FILE'],
-            (string)$attributes['TIME_UNITS'],
-            (new MediaParser($this->mediaResolver))->parse($header->MEDIA_DESCRIPTOR),
-            (new PropertiesParser)->parse($header->PROPERTY)
-        );
+            'mediafile'  => (string)$attributes['MEDIA_FILE'],
+            'timeunits'  => (string)$attributes['TIME_UNITS'],
+            'media'      => [],
+            'properties' => PropertiesParser::parse($item->PROPERTY),
+        ];
     }
 }

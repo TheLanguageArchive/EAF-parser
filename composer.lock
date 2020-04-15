@@ -4,56 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b750a761fa0aadfe2839026e25be92a6",
-    "packages": [
-        {
-            "name": "php-ds/php-ds",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-ds/polyfill.git",
-                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/5af86a08d5a37239092a6f6066aafa00bdf37ea0",
-                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "php-ds/tests": "^1.2"
-            },
-            "suggest": {
-                "ext-ds": "to improve performance and reduce memory usage"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ds\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rudi Theunissen",
-                    "email": "rudolf.theunissen@gmail.com"
-                }
-            ],
-            "keywords": [
-                "data structures",
-                "ds",
-                "php",
-                "polyfill"
-            ],
-            "time": "2019-05-28T19:52:55+00:00"
-        }
-    ],
+    "content-hash": "79c388043f824edcc3e24f33d45cdcfe",
+    "packages": [],
     "packages-dev": [
         {
             "name": "symfony/polyfill-mbstring",
@@ -249,13 +201,13 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "php-ds/php-ds": 20,
         "symfony/var-dumper": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1.0"
+        "php": ">=7.2.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

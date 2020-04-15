@@ -2,7 +2,6 @@
 namespace TLA\EAF;
 
 use DateTime;
-use JsonSerializable;
 
 /**
  * Metadata entity
@@ -10,7 +9,7 @@ use JsonSerializable;
  * @author  Ibrahim Abdullah <ibrahim.abdullah.mpi.nl>
  * @package TLA EAF Parser
  */
-class Metadata implements JsonSerializable
+class Metadata
 {
     /**
      * @var string
@@ -89,11 +88,11 @@ class Metadata implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [
 

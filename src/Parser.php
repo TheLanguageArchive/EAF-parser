@@ -1,22 +1,18 @@
 <?php
 namespace TLA\EAF;
 
-use TLA\EAF\Eaf;
-use TLA\EAF\Media\Resolver;
-use TLA\EAF\Timeslot\Store as TimeslotStore;
-use TLA\EAF\LinguisticType\Store as LinguisticTypeStore;
-use TLA\EAF\Annotation\Store as AnnotationStore;
-use TLA\EAF\Annotation\Resolver\RefAnnotationResolver;
+use TLA\EAF\Resolver\MediaResolver;
 use TLA\EAF\Parser\MetadataParser;
 use TLA\EAF\Parser\HeaderParser;
+use TLA\EAF\Parser\MediaParser;
 use TLA\EAF\Parser\TimeslotParser;
-use TLA\EAF\Parser\TierParser;
 use TLA\EAF\Parser\LinguisticTypeParser;
-use TLA\EAF\Annotation\Sorter;
-use TLA\EAF\LinguisticType\SymbolicSubdivision;
-use TLA\EAF\LinguisticType\SymbolicAssociation;
-use TLA\EAF\LinguisticType\TimeSubdivision;
-use SimpleXMLElement;
+use TLA\EAF\Parser\TiersParser;
+use TLA\EAF\Decorator\TiersDecorator;
+use TLA\EAF\Decorator\SymbolicAssociationDecorator;
+use TLA\EAF\Decorator\SymbolicSubdivisionDecorator;
+use TLA\EAF\Decorator\TimeSubdivisionDecorator;
+use TLA\EAF\Sorter\TierAnnotationsSorter;
 
 /**
  * Parser
@@ -24,6 +20,8 @@ use SimpleXMLElement;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
+use SimpleXMLElement;
+
 class Parser
 {
     /** @var string */
@@ -31,6 +29,9 @@ class Parser
 
     /** @var string */
     const ANNOTATION_TYPE_REF                  = 'ref';
+
+    /** @var string */
+    const LINGUISTIC_TYPE_TOP_LEVEL            = 'toplevel';
 
     /** @var string */
     const LINGUISTIC_TYPE_SYMBOLIC_ASSOCIATION = 'Symbolic_Association';
@@ -47,113 +48,64 @@ class Parser
     /**
      * @var SimpleXMLElement
      */
-    private $annotation;
+    private $xml;
 
     /**
-     * @var Resolver
+     * @var MediaResolver
      */
     private $mediaResolver;
 
     /**
-     * @var TimeslotStore
-     */
-    private $timeslotStore;
-
-    /**
-     * @var AnnotationStore
-     */
-    private $annotationStore;
-
-    /**
-     * @var LinguisticTypeStore
-     */
-    private $linguisticTypeStore;
-
-    /**
      * Constructor
      *
-     * @param SimpleXMLElement $annotation
-     * @param Resolver         $mediaResolver
+     * @param SimpleXMLElement $xml
+     * @param MediaResolver    $mediaResolver
      */
-    public function __construct(SimpleXMLElement $annotation, Resolver $mediaResolver)
+    public function __construct(SimpleXMLElement $xml, MediaResolver $mediaResolver)
     {
-        $this->annotation    = $annotation;
+        $this->xml           = $xml;
         $this->mediaResolver = $mediaResolver;
     }
 
     /**
-     * Parsing annotations file
+     * Parsing EAF
      *
      * @return array
      */
-    public function parse(): Eaf
+    public function parse()
     {
-        $eaf = $this->createEaf();
-        $this->normalize();
+        $parsed = [
 
-        return $eaf;
-    }
+            'metadata' => MetadataParser::parse($this->xml),
+            'header'   => HeaderParser::parse($this->xml->HEADER),
+            'tiers'    => [],
+        ];
 
-    /**
-     * Creating eaf and storing data in stores
-     *
-     * @return Eaf
-     */
-    private function createEaf(): Eaf
-    {
-        $this->timeslotStore       = (new TimeslotParser)->parse($this->annotation->TIME_ORDER->TIME_SLOT);
-        $this->linguisticTypeStore = (new LinguisticTypeParser)->parse($this->annotation->LINGUISTIC_TYPE);
-        $this->annotationStore     = new AnnotationStore();
-        $this->tierStore           = (new TierParser($this->timeslotStore, $this->annotationStore, $this->linguisticTypeStore))->parse($this->annotation->TIER);
+        $parsed['header']['media'] = MediaParser::parse($this->xml->HEADER->MEDIA_DESCRIPTOR, $this->mediaResolver);
 
-        $metadata = (new MetadataParser)->parse($this->annotation);
-        $header   = (new HeaderParser($this->mediaResolver))->parse($this->annotation->HEADER);
+        $timeslots       = TimeslotParser::parse($this->xml->TIME_ORDER->TIME_SLOT);
+        $linguisticTypes = LinguisticTypeParser::parse($this->xml->LINGUISTIC_TYPE);
+        $parsed['tiers'] = TiersParser::parse($this->xml->TIER);
 
-        return new Eaf(
+        TiersDecorator::decorate($parsed['tiers'], $timeslots, $linguisticTypes);
 
-            $metadata,
-            $header,
-            $this->timeslotStore,
-            $this->tierStore
-        );
-    }
+        foreach ($parsed['tiers'] as &$tier) {
 
-    /**
-     * Normalizing data:
-     * - resolving references
-     * - sorting
-     * - associating
-     * - fixing timestamps
-     *
-     * @return void
-     */
-    private function normalize()
-    {
-        $resolver = new RefAnnotationResolver($this->annotationStore);
-        $resolver->resolve();
+            if ($tier['linguistic_type'] === Parser::LINGUISTIC_TYPE_SYMBOLIC_SUBDIVISION) {
 
-        foreach ($this->tierStore->getStorage() as $tier) {
-
-            if ($tier->getLinguisticType() === self::LINGUISTIC_TYPE_SYMBOLIC_SUBDIVISION) {
-
-                $sorter = new Sorter();
-                $sorter->sort($tier);
-
-                $subdivision = new SymbolicSubdivision();
-                $subdivision->divide($tier);
+                TierAnnotationsSorter::sort($tier);
+                SymbolicSubdivisionDecorator::decorate($tier);
             }
 
-            if ($tier->getLinguisticType() === self::LINGUISTIC_TYPE_SYMBOLIC_ASSOCIATION) {
-
-                $association = new SymbolicAssociation();
-                $association->associate($tier);
+            if ($tier['linguistic_type'] === Parser::LINGUISTIC_TYPE_SYMBOLIC_ASSOCIATION) {
+                SymbolicAssociationDecorator::decorate($tier);
             }
 
-            if ($tier->getLinguisticType() === self::LINGUISTIC_TYPE_TIME_SUBDIVISION) {
-
-                $subdivision = new TimeSubdivision();
-                $subdivision->divide($tier);
+            if ($tier['linguistic_type'] === Parser::LINGUISTIC_TYPE_TIME_SUBDIVISION) {
+                TimeSubdivisionDecorator::decorate($tier);
             }
         }
+
+        return $parsed;
     }
 }

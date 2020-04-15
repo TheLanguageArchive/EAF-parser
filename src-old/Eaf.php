@@ -5,7 +5,6 @@ use TLA\EAF\Metadata;
 use TLA\EAF\Header;
 use TLA\EAF\Timeslot\Store as TimeslotStore;
 use TLA\EAF\Tier\Store as TierStore;
-use JsonSerializable;
 
 /**
  * Eaf entity
@@ -13,7 +12,7 @@ use JsonSerializable;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Eaf implements JsonSerializable
+class Eaf
 {
     /**
      * @var Metadata
@@ -92,18 +91,18 @@ class Eaf implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * getting serialized version of eaf
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [
 
-            'metadata'  => $this->getMetadata(),
-            'header'    => $this->getHeader(),
-            'timeslots' => $this->getTimeslotStore(),
-            'tiers'     => $this->getTierStore(),
+            'metadata'  => $this->getMetadata()->toArray(),
+            'header'    => $this->getHeader()->toArray(),
+            'timeslots' => $this->getTimeslotStore()->toArray(),
+            'tiers'     => $this->getTierStore()->toArray(),
         ];
     }
 }

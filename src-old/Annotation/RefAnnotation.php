@@ -3,7 +3,6 @@ namespace TLA\EAF\Annotation;
 
 use TLA\EAF\Annotation\AnnotationInterface;
 use TLA\EAF\Timeslot\Timeslot;
-use JsonSerializable;
 
 /**
  * Alignable Annotation Entity
@@ -11,7 +10,7 @@ use JsonSerializable;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class RefAnnotation implements AnnotationInterface, JsonSerializable
+class RefAnnotation implements AnnotationInterface
 {
     /** @var string */
     const ANNOTATION_TYPE = 'ref';
@@ -213,11 +212,11 @@ class RefAnnotation implements AnnotationInterface, JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [
 

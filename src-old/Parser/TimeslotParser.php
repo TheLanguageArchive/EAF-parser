@@ -1,6 +1,7 @@
 <?php
 namespace TLA\EAF\Parser;
 
+use TLA\EAF\Timeslot\Store as TimeslotStore;
 use SimpleXMLElement;
 
 /**
@@ -10,15 +11,15 @@ use SimpleXMLElement;
 class TimeslotParser
 {
     /**
-     * Parsing timeslots
+     * Parsing timeslot
      *
      * @param SimpleXMLElement $items
      *
-     * @return array
+     * @return TimeslotStore
      */
-    public static function parse(SimpleXMLElement $items): array
+    public function parse(SimpleXMLElement $items): TimeslotStore
     {
-        $timeslots = [];
+        $store = new TimeslotStore();
 
         foreach ($items as $item) {
 
@@ -26,9 +27,9 @@ class TimeslotParser
             $id             = (string)$attributes['TIME_SLOT_ID'];
             $time           = isset($attributes['TIME_VALUE']) ? (int)$attributes['TIME_VALUE'] : null;
 
-            $timeslots[$id] = $time;
+            $store->add($id, $time);
         }
 
-        return $timeslots;
+        return $store;
     }
 }

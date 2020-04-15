@@ -1,13 +1,11 @@
 <?php
 namespace TLA\EAF\Media;
 
-use JsonSerializable;
-
 /**
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Media implements JsonSerializable
+class Media
 {
     /**
      * @var int
@@ -157,11 +155,11 @@ class Media implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [
 

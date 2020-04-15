@@ -1,7 +1,7 @@
 <?php
 namespace TLA\EAF\Parser;
 
-use TLA\EAF\Parser;
+use TLA\EAF\LinguisticType\Store as LinguisticTypeStore;
 use SimpleXMLElement;
 
 /**
@@ -11,15 +11,15 @@ use SimpleXMLElement;
 class LinguisticTypeParser
 {
     /**
-     * Parsing linguistic types
+     * Parsing linguistic type store
      *
      * @param SimpleXMLElement $items
      *
-     * @return array
+     * @return LinguisticTypeStore
      */
-    public static function parse(SimpleXMLElement $items): array
+    public function parse(SimpleXMLElement $items): LinguisticTypeStore
     {
-        $linguisticTypes = [];
+        $store = new LinguisticTypeStore();
 
         foreach ($items as $item) {
 
@@ -27,12 +27,12 @@ class LinguisticTypeParser
             $id         = (string)$attributes['LINGUISTIC_TYPE_ID'];
 
             if (!isset($attributes['CONSTRAINTS'])) {
-                $linguisticTypes[$id] = Parser::LINGUISTIC_TYPE_TOP_LEVEL;
+                $store->add($id, 'toplevel');
             } else {
-                $linguisticTypes[$id] = (string)$attributes['CONSTRAINTS'];
+                $store->add($id, (string)$attributes['CONSTRAINTS']);
             }
         }
 
-        return $linguisticTypes;
+        return $store;
     }
 }

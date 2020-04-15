@@ -1,6 +1,6 @@
 <?php
 use TLA\EAF\Parser;
-use TLA\EAF\Resolver\MediaResolver;
+use TLA\EAF\Media\Resolver;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -37,8 +37,9 @@ $locations = [
     ],
 ];
 
-$parser = new Parser(simplexml_load_file(__DIR__ . '/example.eaf'), new MediaResolver($locations));
+$parser = new Parser(simplexml_load_file(__DIR__ . '/example3.eaf'), new Resolver($locations));
 $eaf    = $parser->parse();
-// header('Content-Encoding: gzip');
-header('Content-type: application/json');
-echo json_encode($eaf);
+$json   = $eaf->toArray();
+
+header('Content-Type: application/json');
+echo json_encode($json);

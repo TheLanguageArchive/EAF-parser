@@ -3,7 +3,6 @@ namespace TLA\EAF;
 
 use TLA\EAF\Media\Manager;
 use TLA\EAF\Property;
-use JsonSerializable;
 
 /**
  * Header entity
@@ -11,7 +10,7 @@ use JsonSerializable;
  * @author  Ibrahim Abdullah <ibrahim.abdullah@mpi.nl>
  * @package TLA EAF Parser
  */
-class Header implements JsonSerializable
+class Header
 {
     /**
      * @var string
@@ -90,18 +89,22 @@ class Header implements JsonSerializable
     }
 
     /**
-     * json_encode calls this method
+     * serialize to array
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
+        $properties = array_map(function(Property $property) {
+            return $property->toArray();
+        }, $this->getProperties());
+
         return [
 
             'mediafile'  => $this->getMediaFile(),
             'timeunits'  => $this->getTimeUnits(),
-            'media'      => $this->getMediaManager(),
-            'properties' => $this->getProperties(),
+            'media'      => $this->getMediaManager()->toArray(),
+            'properties' => $properties,
         ];
     }
 }
