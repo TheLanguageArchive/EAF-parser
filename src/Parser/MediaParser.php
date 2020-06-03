@@ -44,7 +44,7 @@ class MediaParser
                 'url'      => $url,
                 'mimetype' => (string)$attributes['MIME_TYPE'],
                 'relative' => $relative,
-                'audio'    => isset($attributes['EXTRACTED_FROM']),
+                'audio'    => self::determineAudio((string)$attributes['MIME_TYPE']),
                 'offset'   => $offset
             ]);
 
@@ -61,5 +61,17 @@ class MediaParser
             'count' => count($media),
             'first' => current($media) ?? null,
         ];
+    }
+
+    /**
+     * Determining whether mimetype is audio
+     *
+     * @param string $mimetype
+     *
+     * @return boolean
+     */
+    public static function determineAudio(string $mimetype): bool
+    {
+        return substr($mimetype, 0, 5) === 'audio';
     }
 }
