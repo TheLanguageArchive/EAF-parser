@@ -40,10 +40,16 @@ class MediaResolver
             $path = $media['url'];
         }
 
-        $filename = pathinfo($path, PATHINFO_BASENAME);
+        $info = pathinfo($path);
+        $filename = $info['basename'];
 
         if (!isset($this->locations[$filename])) {
-            return false;
+           // check whether there is an mp4 OBJ with the same name
+           $filename = $info['filename'] . '.mp4';
+           if (!isset($this->locations[$filename])) {
+
+                return false;
+           }
         }
 
         $media['url'] = $this->locations[$filename]['url'];
