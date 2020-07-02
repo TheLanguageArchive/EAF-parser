@@ -8,36 +8,18 @@ $locations = [
 
     'example.wav' => [
 
-        'url'      => 'http://localhost/flat/islandora/object/lat%3A12345_4db31e65_4e57_419f_8d17_3523ee3e39be/datastream/PROXY_MP3/view',
+        'url'      => 'http://localhost/flat/islandora/object/lat%3A12345_7240d589_694e_409f_af00_171fd6c17807/datastream/OBJ/view',
         'mimetype' => 'audio/mp3',
     ],
 
     'example.mp4' => [
 
-        'url'      => 'http://localhost/flat/islandora/object/lat%3A12345_aeaae863_c5c6_4ad7_9669_8ac1d5787333/datastream/MP4/view',
-        'mimetype' => 'video/mp4',
-    ],
-
-    'pear.mp4' => [
-
-        'url'      => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/pear.mp4',
-        'mimetype' => 'video/mp4',
-    ],
-
-    'piivyeebe_ayju.wav' => [
-
-        'url'      => 'http://localhost/flat/islandora/object/lat%3A12345_4db31e65_4e57_419f_8d17_3523ee3e39be/datastream/PROXY_MP3/view',
-        'mimetype' => 'audio/mp3',
-    ],
-
-    'piivyeebe_ajyu.mpg' => [
-
-        'url'      => 'http://localhost/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/pear.mp4',
+        'url'      => 'http://localhost/flat/islandora/object/lat%3A12345_839d0177_76ac_4278_8e2c_4e85f1b02704/datastream/MP4/view',
         'mimetype' => 'video/mp4',
     ],
 ];
 
-$parser = new Parser(simplexml_load_file(__DIR__ . '/example.eaf'), new MediaResolver($locations));
+$parser = new Parser(simplexml_load_file(__DIR__ . '/eaf/catalina6.eaf'), new MediaResolver($locations));
 $eaf    = $parser->parse();
 // header('Content-Encoding: gzip');
 header('Content-type: application/json');

@@ -21,10 +21,16 @@ class MetadataParser
     {
         $attributes = $item->attributes();
 
+        try {
+            $date = (new DateTime((string)$attributes['DATE']))->getTimestamp();
+        } catch (\Exception $e) {
+            $date = 0;
+        }
+
         return [
 
             'author'  => (string)$attributes['AUTHOR'],
-            'date'    => (new DateTime((string)$attributes['DATE']))->getTimestamp(),
+            'date'    => 0,
             'format'  => (string)$attributes['FORMAT'],
             'version' => (string)$attributes['VERSION'],
         ];
