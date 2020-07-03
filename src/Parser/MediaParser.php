@@ -21,12 +21,14 @@ class MediaParser
     public static function parse(SimpleXMLElement $items, MediaResolver $mediaResolver): array
     {
         $media = [];
+        $rank  = 0;
         $id    = 0;
 
         foreach ($items as $item) {
 
             $attributes = $item->attributes();
 
+            $isAudio  = self::determineAudio((string)$attributes['MIME_TYPE']);
             $offset   = isset($attributes['TIME_ORIGIN']) ? (int)$attributes['TIME_ORIGIN'] : 0;
             $relative = (string)$attributes['RELATIVE_MEDIA_URL'];
             $url      = (string)$attributes['MEDIA_URL'];
@@ -39,21 +41,29 @@ class MediaParser
             $filename = pathinfo($path, PATHINFO_BASENAME);
             $resolved = $mediaResolver->resolve([
 
-                'id'       => $id,
+                'id'       => null,
                 'filename' => $filename,
                 'url'      => $url,
                 'mimetype' => (string)$attributes['MIME_TYPE'],
                 'relative' => $relative,
-                'audio'    => self::determineAudio((string)$attributes['MIME_TYPE']),
+                'audio'    => $isAudio,
                 'offset'   => $offset
             ]);
 
             if (false !== $resolved) {
 
-                $id     += 1;
+                $rank += 1;
+                $id = $rank + (false === $isAudio ? 10 : 20);
+
+                $resolved['id'] = $id;
                 $media[] = $resolved;
             }
         }
+
+        // adding sort to ensure videos come up first
+        usort($media, function($a, $b) {
+            return $a['id'] < $b['id'] ? -1 : 1;
+        });
 
         return [
 
