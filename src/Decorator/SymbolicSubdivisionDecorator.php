@@ -24,27 +24,37 @@ class SymbolicSubdivisionDecorator
      */
     public static function decorate(array &$tier)
     {
-        // symbolic subdivision needs the referenced annotation
-        // to divide the timeslots evenly between the start and end
-        $first      = current($tier['annotations']);
-        $referenced = $first['referenced_annotation'];
-        $total      = count($tier['annotations']);
+        $grouped = [];
 
-        // getting the first annotation start and end time
-        // and calculating the duration by dividing the time with
-        // the total of annotations in the store
-        $duration    = (($referenced['end'] - $referenced['start']) / $total);
-        $customStart = -$duration;
-        $customEnd   = 0;
-
-        // and finally saving the custom time back into ref annotation
+        // grouping the subdivisions by ref
         foreach ($tier['annotations'] as &$annotation) {
+            $grouped[$annotation['ref']][] = &$annotation;
+        }
 
-            $customStart += $duration;
-            $customEnd   += $duration;
+        foreach ($grouped as &$annotations) {
 
-            $annotation['custom_start'] = $customStart;
-            $annotation['custom_end']   = $customEnd;
+            // symbolic subdivision needs the referenced annotation
+            // to divide the timeslots evenly between the start and end
+            $first      = current($annotations);
+            $referenced = $first['referenced_annotation'];
+            $total      = count($annotations);
+
+            // getting the first annotation start and end time
+            // and calculating the duration by dividing the time with
+            // the total of annotations in the store
+            $duration    = (($referenced['end'] - $referenced['start']) / $total);
+            $customStart = $referenced['start'] - $duration;
+            $customEnd   = $referenced['start'];
+
+            // and finally saving the custom time back into ref annotation
+            foreach ($annotations as &$annotation) {
+
+                $customStart += $duration;
+                $customEnd   += $duration;
+
+                $annotation['custom_start'] = $customStart;
+                $annotation['custom_end']   = $customEnd;
+            }
         }
     }
 }
